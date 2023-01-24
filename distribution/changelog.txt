@@ -12,6 +12,7 @@
 - Improved: [#18970] Trying to load a non-park save will now display a context error.
 - Improved: [#18975] Add lift sprites for 60 steep hills on the wooden roller coaster.
 - Improved: [#19044] Added special thanks to RMC and Wiegand to the About page.
+- Change: [#17718] Replaced blood-curdling scream with a regular roller coaster scream.
 - Change: [#19018] Renamed actions to fit the naming scheme.
 - Change: [#19091] [Plugin] Add game action information to callback arguments of custom actions.
 - Fix: [#474] Mini golf window shows more players than there actually are (original bug).

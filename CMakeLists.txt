@@ -76,9 +76,9 @@ set(OPENMSX_VERSION "1.0.1")
 set(OPENMSX_URL  "https://github.com/OpenRCT2/OpenMusic/releases/download/v${OPENMSX_VERSION}/openmusic.zip")
 set(OPENMSX_SHA1 "8ff94490180e2fbfdd13a4130eb300da726ca406")
 
-set(REPLAYS_VERSION "0.0.70")
+set(REPLAYS_VERSION "0.0.71")
 set(REPLAYS_URL  "https://github.com/OpenRCT2/replays/releases/download/v${REPLAYS_VERSION}/replays.zip")
-set(REPLAYS_SHA1 "09B339E86AAE81580C5AC3E23AC4BC9E030DA076")
+set(REPLAYS_SHA1 "B582B58A4B0685AA2FA3F2620C87031D71CAD11D")
 
 option(FORCE32 "Force 32-bit build. It will add `-m32` to compiler flags.")
 option(WITH_TESTS "Build tests")
