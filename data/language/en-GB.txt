@@ -3699,6 +3699,7 @@ STR_6593    :Remove park fences
 
 STR_6594    :Water slide mode
 STR_6595    :Waiting
+STR_6596    :Unable to operate without exactly two stations in this mode
 
 #############
 # Scenarios #

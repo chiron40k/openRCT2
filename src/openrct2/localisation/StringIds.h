@@ -4004,6 +4004,7 @@ enum : uint16_t
 
     STR_RIDE_MODE_WATER_SLIDE = 6594,
     STR_STATUS_WAITING = 6595,
+    STR_UNABLE_TO_OPERATE_WITHOUT_TWO_STATIONS_IN_THIS_MODE = 6596,
 
     // Have to include resource strings (from scenarios and objects) for the time being now that language is partially working
     /* MAX_STR_COUNT = 32768 */ // MAX_STR_COUNT - upper limit for number of strings, not the current count strings
