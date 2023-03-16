@@ -3698,6 +3698,7 @@ STR_6592    :Staff member is currently inspecting a ride and can’t be fired.
 STR_6593    :Remove park fences
 
 STR_6594    :Water slide mode
+STR_6595    :Waiting
 
 #############
 # Scenarios #
