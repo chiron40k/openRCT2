@@ -236,6 +236,7 @@ struct Vehicle : EntityBase
     Vehicle* TrainTail() const;
     void UpdateAnimationAnimalFlying();
     void EnableCollisionsForTrain();
+    void ReturnToEntranceStation();
     /**
      * Instantly moves the specific car forward or backwards along the track.
      */
@@ -451,6 +452,7 @@ namespace VehicleFlags
                                                   // an individual car on a train
     constexpr uint32_t Crashed = (1 << 15);       // Car displays as smoke plume
     constexpr uint32_t CarIsReversed = (1 << 16); // Car is displayed running backwards
+    constexpr uint32_t Intangible = (1 << 17);    // Car is invisible and cannot collide
 } // namespace VehicleFlags
 
 enum

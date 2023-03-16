@@ -925,7 +925,7 @@ bool Ride::SupportsStatus(RideStatus s) const
         case RideStatus::Simulating:
             return (!rtd.HasFlag(RIDE_TYPE_FLAG_NO_TEST_MODE) && rtd.HasFlag(RIDE_TYPE_FLAG_HAS_TRACK));
         case RideStatus::Testing:
-            return !rtd.HasFlag(RIDE_TYPE_FLAG_NO_TEST_MODE);
+            return !rtd.HasFlag(RIDE_TYPE_FLAG_NO_TEST_MODE) && mode != RideMode::WaterSlide;
         case RideStatus::Count: // Meaningless but necessary to satisfy -Wswitch
             return false;
     }
@@ -3234,13 +3234,16 @@ static Vehicle* VehicleCreateCar(
     vehicle->SubType = carIndex == 0 ? Vehicle::Type::Head : Vehicle::Type::Tail;
     vehicle->var_44 = Numerics::ror32(carEntry.spacing, 10) & 0xFFFF;
 
-    const auto halfSpacing = carEntry.spacing >> 1;
-    *remainingDistance -= halfSpacing;
-    vehicle->remaining_distance = *remainingDistance;
-
-    if (!(carEntry.flags & CAR_ENTRY_FLAG_GO_KART))
+    if (ride.mode != RideMode::WaterSlide)
     {
+        const auto halfSpacing = carEntry.spacing >> 1;
         *remainingDistance -= halfSpacing;
+        vehicle->remaining_distance = *remainingDistance;
+
+        if (!(carEntry.flags & CAR_ENTRY_FLAG_GO_KART))
+        {
+            *remainingDistance -= halfSpacing;
+        }
     }
 
     // Loc6DD9A5:
@@ -3379,7 +3382,9 @@ static Vehicle* VehicleCreateCar(
             }
         }
 
-        chosenLoc += CoordsXYZ{ word_9A2A60[direction], rtd.Heights.VehicleZOffset };
+        if (ride.mode != RideMode::WaterSlide) {
+            chosenLoc += CoordsXYZ{ word_9A2A60[direction], rtd.Heights.VehicleZOffset };
+        }
 
         vehicle->current_station = trackElement->GetStationIndex();
 
@@ -3655,7 +3660,14 @@ ResultWithMessage Ride::CreateVehicles(const CoordsXYE& element, bool isApplying
                     vehicle->UpdateTrackMotion(nullptr);
                 }
 
-                vehicle->EnableCollisionsForTrain();
+                if (mode != RideMode::WaterSlide)
+                {
+                    vehicle->EnableCollisionsForTrain();
+                }
+                else
+                {
+                    vehicle->SetFlag(VehicleFlags::Intangible);
+                }
             }
         }
     }
@@ -5090,6 +5102,9 @@ void Ride::UpdateMaxVehicles()
             case RideMode::LimPoweredLaunch:
             case RideMode::PoweredLaunch:
                 maxNumTrains = 1;
+                break;
+            case RideMode::WaterSlide:
+                maxNumTrains = 4;
                 break;
             default:
                 // Calculate maximum number of trains
