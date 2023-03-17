@@ -3664,7 +3664,7 @@ ResultWithMessage Ride::CreateVehicles(const CoordsXYE& element, bool isApplying
                     vehicle->WaterSlideSetWaiting();
                     if (i == 0)
                     {
-                        vehicle->WaterSlideTeleport();
+                        vehicle->WaterSlideRespawnVehicle();
                     }
                 }
                 else
@@ -3741,6 +3741,29 @@ void Ride::MoveTrainsToBlockBrakes(const CoordsXYZ& firstBlockPosition, TrackEle
                 car->SetState(Vehicle::Status::MovingToEndOfStation, car->sub_state);
             }
         }
+    }
+}
+
+void Ride::VehicleRespawnTrain(const Ride& ride, Vehicle* trainHead, CoordsXYZ trainPos, TrackElement* trackElement)
+{
+    for (auto vehicle = trainHead; vehicle != nullptr; vehicle = GetEntity<Vehicle>(vehicle->next_vehicle_on_train))
+    {
+        vehicle->TrackSubposition = VehicleTrackSubposition::Default;
+        vehicle->TrackLocation = trainPos;
+
+        int32_t direction = trackElement->GetDirection();
+        vehicle->sprite_direction = direction << 3;
+        const auto& rtd = ride.GetRideTypeDescriptor();
+        trainPos += CoordsXYZ{ word_9A2A60[direction], rtd.Heights.VehicleZOffset };
+
+        vehicle->current_station = trackElement->GetStationIndex();
+
+        vehicle->MoveTo(trainPos);
+        vehicle->SetTrackType(trackElement->GetTrackType());
+        vehicle->SetTrackDirection(direction);
+        vehicle->track_progress = 31;
+
+        vehicle->SetState(Vehicle::Status::MovingToEndOfStation);
     }
 }
 
