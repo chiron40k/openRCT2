@@ -3138,17 +3138,12 @@ void Vehicle::UpdateDeparting()
         case RideMode::RotatingLift:
         case RideMode::FreefallDrop:
         case RideMode::BoatHire:
+        case RideMode::WaterSlide:
             if (carEntry.flags & CAR_ENTRY_FLAG_POWERED)
                 break;
 
             if (velocity <= 131940)
                 acceleration = 3298;
-            break;
-        case RideMode::WaterSlide:
-            if (velocity <= 131940)
-                acceleration = 3298;
-
-            EnableCollisionsForTrain();
             break;
         default:
         {
@@ -5067,8 +5062,8 @@ void Vehicle::UpdateDoingCircusShow()
 }
 
 void Vehicle::UpdateWaterSlideWaiting() {
-    auto prevTrain = GetEntity<Vehicle>(prev_vehicle_on_ride);
-    if ((prevTrain != nullptr && !prevTrain->HasFlag(VehicleFlags::CollisionDisabled)) || GetRide()->NumTrains == 1)
+    auto prevTrain = GetEntity<Vehicle>(GetHead()->prev_vehicle_on_ride)->GetHead();
+    if ((prevTrain != nullptr && prevTrain->status == Status::Travelling) || GetRide()->NumTrains == 1)
     {
         WaterSlideRespawnVehicle();
     }
@@ -7241,7 +7236,7 @@ bool Vehicle::UpdateMotionCollisionDetection(const CoordsXYZ& loc, EntityId* oth
         }
     }
 
-    if (!mayCollide)
+    if (!mayCollide || collideVehicle->HasFlag(VehicleFlags::CollisionDisabled))
     {
         CollisionDetectionTimer = 0;
         return false;
@@ -9499,6 +9494,7 @@ void Vehicle::WaterSlideSetReady()
     for (auto vehicle = GetHead(); vehicle != nullptr; vehicle = GetEntity<Vehicle>(vehicle->next_vehicle_on_train))
     {
         vehicle->ClearFlag(VehicleFlags::Invisible);
+        vehicle->ClearFlag(VehicleFlags::CollisionDisabled);
     }
 }
 
