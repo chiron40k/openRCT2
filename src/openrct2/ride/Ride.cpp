@@ -5138,7 +5138,8 @@ void Ride::UpdateMaxVehicles()
                     const auto& carEntry = rideEntry->Cars[RideEntryGetVehicleAtPosition(subtype, newCarsPerTrain, i)];
                     trainLength += carEntry.spacing;
                 }
-                maxNumTrains = std::min((RideGetTrackLength(*this) / (trainLength >> 9)) + 2, int32_t(OpenRCT2::Limits::MaxTrainsPerRide));
+                maxNumTrains = std::min(
+                    (RideGetTrackLength(*this) / (trainLength >> 9)) + 2, int32_t(OpenRCT2::Limits::MaxTrainsPerRide));
                 break;
             }
             default:
