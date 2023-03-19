@@ -458,7 +458,7 @@ namespace VehicleFlags
                                                   // an individual car on a train
     constexpr uint32_t Crashed = (1 << 15);       // Car displays as smoke plume
     constexpr uint32_t CarIsReversed = (1 << 16); // Car is displayed running backwards
-    constexpr uint32_t Invisible = (1 << 17);    // Vehicle paint is skipped
+    constexpr uint32_t Invisible = (1 << 17);     // Vehicle paint is skipped
 } // namespace VehicleFlags
 
 enum
