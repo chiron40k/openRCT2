@@ -104,7 +104,7 @@ The following people are not part of the development team, but have been contrib
 * Umar Ahmed (umar-ahmed) - MacOS file watcher
 * Andrew Arnold (fidwell) - Misc.
 * Josh Trzebiatowski (trzejos) - Ride and scenery filtering
-* (kyphii) - Extended color selection, reversed ride vehicles, misc.
+* (kyphii) - Extended color selection, reversed ride vehicles, water slide operating mode, misc.
 * Phumdol Lookthipnapha (beam41) - Misc.
 * Nikolas Parshook (nparshook) - Misc.
 * Wenzhao Qiu (qwzhaox) - Misc.
