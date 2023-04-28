@@ -55,6 +55,7 @@ public:
     void BindDraw() const;
     void BindRead() const;
     void GetPixels(DrawPixelInfo& dpi) const;
+    void SetPixels(const DrawPixelInfo& dpi);
 
     void SwapColourBuffer(OpenGLFramebuffer& other);
     GLuint SwapDepthTexture(GLuint depth);
