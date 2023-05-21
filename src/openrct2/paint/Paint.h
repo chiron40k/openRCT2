@@ -283,6 +283,7 @@ constexpr ImageId HighlightMarker = ImageId(0).WithRemap(FilterPaletteID::Palett
 constexpr ImageId TrackGhost = ImageId(0, FilterPaletteID::PaletteNull);
 
 extern bool gShowDirtyVisuals;
+extern bool gForceRedraw;
 extern bool gPaintBoundingBoxes;
 extern bool gPaintBlockedTiles;
 extern bool gPaintWidePathsAsGhost;
