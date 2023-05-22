@@ -348,7 +348,7 @@ public:
     void DrawAllDirtyBlocks()
     {
         _drawingContext->CalculcateClipping(&_bitsDPI);
-        
+
         _invalidationGrid.TraverseDirtyCells(
             [this](int32_t x, int32_t y, int32_t columns, int32_t rows) { DrawDirtyBlocks(x, y, columns, rows); });
     }

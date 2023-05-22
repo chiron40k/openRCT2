@@ -134,7 +134,7 @@ public:
             widgets[WIDX_TOGGLE_SHOW_BOUND_BOXES].right = newWidth - 8;
             widgets[WIDX_TOGGLE_SHOW_DIRTY_VISUALS].right = newWidth - 8;
             widgets[WIDX_TOGGLE_FORCE_REDRAW].right = newWidth - 8;
-            
+
             Invalidate();
         }
 
