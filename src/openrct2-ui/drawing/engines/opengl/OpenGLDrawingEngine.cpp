@@ -253,7 +253,7 @@ public:
         ConfigureCanvas();
         _drawingContext->Resize(width, height);
 
-        _invalidationGrid.Reset(width, height);
+        _invalidationGrid.Reset(width, height, 256, 256);
     }
 
     void SetPalette(const GamePalette& palette) override
