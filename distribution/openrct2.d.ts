@@ -2084,6 +2084,54 @@ declare global {
          * The min chain lift speed for this ride in miles per hour.
          */
         readonly minLiftHillSpeed: number;
+
+        /**
+         * The max speed. (speed * 9) >> 18 = miles per hour.
+         */
+        readonly maxSpeed: number;
+
+        /**
+         * The average speed.
+         */
+        readonly averageSpeed: number;
+
+        /**
+         * The ride time in seconds.
+         */
+        readonly rideTime: number;
+
+        /**
+         * Total length of the ride. Left shift
+         */
+        readonly rideLength: number;
+
+        /**
+         * The max positive vertical Gs in hundredths of a gram.
+         */
+        readonly maxPositiveVerticalGs: number;
+
+        /**
+         * The max negative vertical Gs in hundredths of a gram.
+         */
+        readonly maxNegativeVerticalGs: number;
+
+        /**
+         * The max lateral Gs in hundredths of a gram.
+         */
+        readonly maxLateralGs: number;
+
+        /**
+         * The total airtime. Multiply by 3 to get hundredths of a second.
+         */
+        readonly totalAirTime: number;
+
+        /**
+         * Formatted as 0b(YYXX XXXX) where YY is the  number of powered lifts and XXXXXX is the number of drops
+         */
+        readonly drops: number;
+
+        
+        readonly highestDropHeight: number;
     }
 
     type RideClassification = "ride" | "stall" | "facility";
