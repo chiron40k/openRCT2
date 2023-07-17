@@ -163,13 +163,13 @@ namespace OpenRCT2::Scripting
         uint8_t maxLiftHillSpeed_get() const;
         uint8_t minLiftHillSpeed_get() const;
 
-        int32_t maxSpeed_get() const;
+        float_t maxSpeed_get() const;
 
-        int32_t averageSpeed_get() const;
+        float_t averageSpeed_get() const;
 
         int32_t rideTime_get() const;
 
-        int32_t rideLength_get() const;
+        float_t rideLength_get() const;
 
         int32_t maxPositiveVerticalGs_get() const;
 
@@ -183,7 +183,7 @@ namespace OpenRCT2::Scripting
 
         uint8_t poweredLifts_get() const;
 
-        uint8_t highestDropHeight_get() const;
+        float_t highestDropHeight_get() const;
 
         Ride* GetRide() const;
 
