@@ -53,7 +53,7 @@ int32_t MphToDmps(int32_t mph)
 
 int32_t HeightUnitsToMetres(int32_t heightUnit)
 {
-    // 1 units = 0.75 metres
+    // 1 unit = 0.75 metres
     return (heightUnit >> 2) + (heightUnit >> 1);
 }
 
