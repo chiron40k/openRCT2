@@ -10,6 +10,7 @@
 #include "DrawingEngineFactory.hpp"
 
 #include <SDL.h>
+#include <chrono>
 #include <cmath>
 #include <memory>
 #include <openrct2/Game.h>
@@ -29,7 +30,7 @@ using namespace OpenRCT2::Ui;
 class HardwareDisplayDrawingEngine final : public X8DrawingEngine
 {
 private:
-    constexpr static uint32_t DIRTY_VISUAL_TIME = 32;
+    constexpr static uint32_t DIRTY_VISUAL_TIME = 32 * 25; // Milliseconds, one tick is 25ms so 32 ticks is 800ms
 
     std::shared_ptr<IUiContext> const _uiContext;
     SDL_Window* _window = nullptr;
@@ -47,7 +48,9 @@ private:
     bool _pausedBeforeOverlay = false;
     bool _useVsync = true;
 
-    std::vector<uint32_t> _dirtyVisualsTime;
+    using ClockType = std::chrono::high_resolution_clock;
+
+    std::vector<ClockType::time_point> _dirtyVisualsTime;
 
     bool smoothNN = false;
 
@@ -158,6 +161,9 @@ public:
         _screenTextureFormat = SDL_AllocFormat(format);
 
         ConfigureBits(width, height, width);
+
+        _dirtyVisualsTime.clear();
+        _dirtyVisualsTime.resize(height * width);
     }
 
     void SetPalette(const GamePalette& palette) override
@@ -184,24 +190,19 @@ public:
     void EndDraw() override
     {
         Display();
-        if (gShowDirtyVisuals)
-        {
-            UpdateDirtyVisuals();
-        }
     }
 
 protected:
-    void OnDrawDirtyBlock(uint32_t left, uint32_t top, uint32_t columns, uint32_t rows) override
+    void OnDrawDirtyBlock(int32_t left, int32_t top, int32_t right, int32_t bottom) override
     {
         if (gShowDirtyVisuals)
         {
-            uint32_t right = left + columns;
-            uint32_t bottom = top + rows;
-            for (uint32_t x = left; x < right; x++)
+            const auto decayTime = ClockType::now() + std::chrono::milliseconds(DIRTY_VISUAL_TIME);
+            for (int32_t x = left; x < right; x++)
             {
-                for (uint32_t y = top; y < bottom; y++)
+                for (int32_t y = top; y < bottom; y++)
                 {
-                    SetDirtyVisualTime(x, y, DIRTY_VISUAL_TIME);
+                    SetDirtyVisualTime(x, y, decayTime);
                 }
             }
         }
@@ -308,59 +309,56 @@ private:
     uint32_t GetDirtyVisualTime(uint32_t x, uint32_t y)
     {
         uint32_t result = 0;
-        uint32_t i = y * _dirtyGrid.BlockColumns + x;
+        uint32_t i = y * _invalidationGrid.GetColumns() + x;
         if (_dirtyVisualsTime.size() > i)
         {
-            result = _dirtyVisualsTime[i];
+            const auto now = ClockType::now();
+            const auto decayTime = _dirtyVisualsTime[i];
+            if (now > decayTime)
+                return 0;
+            const auto delta = std::chrono::duration_cast<std::chrono::milliseconds>(decayTime - now);
+            return static_cast<uint32_t>(delta.count());
         }
         return result;
     }
 
-    void SetDirtyVisualTime(uint32_t x, uint32_t y, uint32_t value)
+    void SetDirtyVisualTime(int32_t x, int32_t y, ClockType::time_point value)
     {
-        uint32_t i = y * _dirtyGrid.BlockColumns + x;
+        const auto blockWidth = _invalidationGrid.GetBlockWidth();
+        const auto blockHeight = _invalidationGrid.GetBlockHeight();
+
+        int32_t i = (y / blockHeight) * _invalidationGrid.GetColumns() + (x / blockWidth);
         if (_dirtyVisualsTime.size() > i)
         {
             _dirtyVisualsTime[i] = value;
         }
     }
 
-    void UpdateDirtyVisuals()
-    {
-        _dirtyVisualsTime.resize(_dirtyGrid.BlockRows * _dirtyGrid.BlockColumns);
-        for (uint32_t y = 0; y < _dirtyGrid.BlockRows; y++)
-        {
-            for (uint32_t x = 0; x < _dirtyGrid.BlockColumns; x++)
-            {
-                auto timeLeft = GetDirtyVisualTime(x, y);
-                if (timeLeft > 0)
-                {
-                    SetDirtyVisualTime(x, y, timeLeft - 1);
-                }
-            }
-        }
-    }
-
     void RenderDirtyVisuals()
     {
+        const auto blockRows = _invalidationGrid.GetRows();
+        const auto blockCols = _invalidationGrid.GetColumns();
+        const auto blockWidth = _invalidationGrid.GetBlockWidth();
+        const auto blockHeight = _invalidationGrid.GetBlockHeight();
+
         float scaleX = gConfigGeneral.WindowScale;
         float scaleY = gConfigGeneral.WindowScale;
 
         SDL_SetRenderDrawBlendMode(_sdlRenderer, SDL_BLENDMODE_BLEND);
-        for (uint32_t y = 0; y < _dirtyGrid.BlockRows; y++)
+        for (uint32_t y = 0; y < blockRows; y++)
         {
-            for (uint32_t x = 0; x < _dirtyGrid.BlockColumns; x++)
+            for (uint32_t x = 0; x < blockCols; x++)
             {
                 auto timeLeft = GetDirtyVisualTime(x, y);
                 if (timeLeft > 0)
                 {
-                    uint8_t alpha = static_cast<uint8_t>(timeLeft * 5 / 2);
+                    uint8_t alpha = static_cast<uint8_t>((timeLeft / static_cast<float>(DIRTY_VISUAL_TIME)) * 128.0f);
 
                     SDL_Rect ddRect;
-                    ddRect.x = static_cast<int32_t>(x * _dirtyGrid.BlockWidth * scaleX);
-                    ddRect.y = static_cast<int32_t>(y * _dirtyGrid.BlockHeight * scaleY);
-                    ddRect.w = static_cast<int32_t>(_dirtyGrid.BlockWidth * scaleX);
-                    ddRect.h = static_cast<int32_t>(_dirtyGrid.BlockHeight * scaleY);
+                    ddRect.x = static_cast<int32_t>(x * blockWidth * scaleX);
+                    ddRect.y = static_cast<int32_t>(y * blockHeight * scaleY);
+                    ddRect.w = static_cast<int32_t>(blockWidth * scaleX);
+                    ddRect.h = static_cast<int32_t>(blockHeight * scaleY);
 
                     SDL_SetRenderDrawColor(_sdlRenderer, 255, 255, 255, alpha);
                     SDL_RenderFillRect(_sdlRenderer, &ddRect);

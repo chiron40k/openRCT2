@@ -28,10 +28,11 @@ enum WindowDebugPaintWidgetIdx
     WIDX_TOGGLE_SHOW_SEGMENT_HEIGHTS,
     WIDX_TOGGLE_SHOW_BOUND_BOXES,
     WIDX_TOGGLE_SHOW_DIRTY_VISUALS,
+    WIDX_TOGGLE_FORCE_REDRAW,
 };
 
 constexpr int32_t WINDOW_WIDTH = 200;
-constexpr int32_t WINDOW_HEIGHT = 8 + 15 + 15 + 15 + 15 + 11 + 8;
+constexpr int32_t WINDOW_HEIGHT = 8 + (15 * 5) + 11 + 8;
 
 static Widget window_debug_paint_widgets[] = {
     MakeWidget({0,          0}, {WINDOW_WIDTH, WINDOW_HEIGHT}, WindowWidgetType::Frame,    WindowColour::Primary                                        ),
@@ -40,6 +41,7 @@ static Widget window_debug_paint_widgets[] = {
     MakeWidget({8, 8 + 15 * 2}, {         185,            12}, WindowWidgetType::Checkbox, WindowColour::Secondary, STR_DEBUG_PAINT_SHOW_SEGMENT_HEIGHTS),
     MakeWidget({8, 8 + 15 * 3}, {         185,            12}, WindowWidgetType::Checkbox, WindowColour::Secondary, STR_DEBUG_PAINT_SHOW_BOUND_BOXES    ),
     MakeWidget({8, 8 + 15 * 4}, {         185,            12}, WindowWidgetType::Checkbox, WindowColour::Secondary, STR_DEBUG_PAINT_SHOW_DIRTY_VISUALS  ),
+    MakeWidget({8, 8 + 15 * 5}, {         185,            12}, WindowWidgetType::Checkbox, WindowColour::Secondary, STR_DEBUG_PAINT_FORCE_REDRAW        ),
     WIDGETS_END,
 };
 // clang-format on
@@ -91,6 +93,11 @@ public:
                 gShowDirtyVisuals = !gShowDirtyVisuals;
                 GfxInvalidateScreen();
                 break;
+
+            case WIDX_TOGGLE_FORCE_REDRAW:
+                gForceRedraw = !gForceRedraw;
+                GfxInvalidateScreen();
+                break;
         }
     }
 
@@ -126,6 +133,7 @@ public:
             widgets[WIDX_TOGGLE_SHOW_SEGMENT_HEIGHTS].right = newWidth - 8;
             widgets[WIDX_TOGGLE_SHOW_BOUND_BOXES].right = newWidth - 8;
             widgets[WIDX_TOGGLE_SHOW_DIRTY_VISUALS].right = newWidth - 8;
+            widgets[WIDX_TOGGLE_FORCE_REDRAW].right = newWidth - 8;
 
             Invalidate();
         }
@@ -135,6 +143,7 @@ public:
         WidgetSetCheckboxValue(*this, WIDX_TOGGLE_SHOW_SEGMENT_HEIGHTS, gShowSupportSegmentHeights);
         WidgetSetCheckboxValue(*this, WIDX_TOGGLE_SHOW_BOUND_BOXES, gPaintBoundingBoxes);
         WidgetSetCheckboxValue(*this, WIDX_TOGGLE_SHOW_DIRTY_VISUALS, gShowDirtyVisuals);
+        WidgetSetCheckboxValue(*this, WIDX_TOGGLE_FORCE_REDRAW, gForceRedraw);
     }
 
     void OnDraw(DrawPixelInfo& dpi) override

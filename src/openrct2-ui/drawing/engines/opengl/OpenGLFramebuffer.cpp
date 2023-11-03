@@ -15,6 +15,7 @@
 #    include <algorithm>
 #    include <memory>
 #    include <openrct2/common.h>
+#    include <openrct2/core/Guard.hpp>
 
 constexpr GLuint BACKBUFFER_ID = 0;
 
@@ -87,12 +88,15 @@ void OpenGLFramebuffer::BindRead() const
 
 void OpenGLFramebuffer::GetPixels(DrawPixelInfo& dpi) const
 {
-    assert(dpi.width == _width && dpi.height == _height);
+    Guard::Assert(dpi.width == _width && dpi.height == _height);
 
     auto pixels = std::make_unique<uint8_t[]>(_width * _height);
     glBindTexture(GL_TEXTURE_2D, _texture);
+    CheckGLError();
     glPixelStorei(GL_PACK_ALIGNMENT, 1);
+    CheckGLError();
     glGetTexImage(GL_TEXTURE_2D, 0, GL_RED_INTEGER, GL_UNSIGNED_BYTE, pixels.get());
+    CheckGLError();
 
     // Flip pixels vertically on copy
     uint8_t* src = pixels.get() + ((_height - 1) * _width);
@@ -103,6 +107,29 @@ void OpenGLFramebuffer::GetPixels(DrawPixelInfo& dpi) const
         src -= _width;
         dst += dpi.width + dpi.pitch;
     }
+}
+
+void OpenGLFramebuffer::SetPixels(const DrawPixelInfo& dpi)
+{
+    Guard::Assert(dpi.width == _width && dpi.height == _height);
+
+    auto pixels = std::make_unique<uint8_t[]>(_width * _height);
+    // Flip pixels vertically on copy
+    uint8_t* dst = pixels.get() + ((_height - 1) * _width);
+    uint8_t* src = dpi.bits;
+    for (int32_t y = 0; y < _height; y++)
+    {
+        std::copy_n(src, _width, dst);
+        src += dpi.width + dpi.pitch;
+        dst -= _width;
+    }
+
+    glBindTexture(GL_TEXTURE_2D, _texture);
+    CheckGLError();
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    CheckGLError();
+    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, GL_RED_INTEGER, GL_UNSIGNED_BYTE, pixels.get());
+    CheckGLError();
 }
 
 void OpenGLFramebuffer::SwapColourBuffer(OpenGLFramebuffer& other)
