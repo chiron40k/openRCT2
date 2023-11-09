@@ -4078,6 +4078,10 @@ void Guest::UpdateRideEnterVehicle()
 
             vehicle->ApplyMass(Mass);
             vehicle->Invalidate();
+            if (ride->mode == RideMode::WaterSlide)
+            {
+                vehicle->WaterSlideSetReady();
+            }
 
             MoveTo({ LOCATION_NULL, 0, 0 });
 

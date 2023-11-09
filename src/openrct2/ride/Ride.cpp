@@ -925,7 +925,7 @@ bool Ride::SupportsStatus(RideStatus s) const
         case RideStatus::Simulating:
             return (!rtd.HasFlag(RIDE_TYPE_FLAG_NO_TEST_MODE) && rtd.HasFlag(RIDE_TYPE_FLAG_HAS_TRACK));
         case RideStatus::Testing:
-            return !rtd.HasFlag(RIDE_TYPE_FLAG_NO_TEST_MODE);
+            return !rtd.HasFlag(RIDE_TYPE_FLAG_NO_TEST_MODE) && mode != RideMode::WaterSlide;
         case RideStatus::Count: // Meaningless but necessary to satisfy -Wswitch
             return false;
     }
@@ -2578,6 +2578,10 @@ static ResultWithMessage RideModeCheckValidStationNumbers(const Ride& ride)
             if (numStations >= 2)
                 return { true };
             return { false, STR_UNABLE_TO_OPERATE_WITH_LESS_THAN_TWO_STATIONS_IN_THIS_MODE };
+        case RideMode::WaterSlide:
+            if (numStations == 2)
+                return { true };
+            return { false, STR_UNABLE_TO_OPERATE_WITHOUT_TWO_STATIONS_IN_THIS_MODE };
         default:
         {
             // This is workaround for multiple compilation errors of type "enumeration value ‘RIDE_MODE_*' not handled
@@ -3655,7 +3659,18 @@ ResultWithMessage Ride::CreateVehicles(const CoordsXYE& element, bool isApplying
                     vehicle->UpdateTrackMotion(nullptr);
                 }
 
-                vehicle->EnableCollisionsForTrain();
+                if (mode == RideMode::WaterSlide)
+                {
+                    vehicle->WaterSlideSetWaiting();
+                    if (i == 0)
+                    {
+                        vehicle->WaterSlideRespawnVehicle();
+                    }
+                }
+                else
+                {
+                    vehicle->EnableCollisionsForTrain();
+                }
             }
         }
     }
@@ -3726,6 +3741,30 @@ void Ride::MoveTrainsToBlockBrakes(const CoordsXYZ& firstBlockPosition, TrackEle
                 car->SetState(Vehicle::Status::MovingToEndOfStation, car->sub_state);
             }
         }
+    }
+}
+
+void Ride::VehicleRespawnTrain(const Ride& ride, Vehicle* trainHead, CoordsXYZ trainPos, TrackElement* trackElement)
+{
+    int32_t remainingDistance = 0;
+    int32_t direction = trackElement->GetDirection();
+    auto posOffset = trainPos + CoordsXYZ{ word_9A2A60[direction], ride.GetRideTypeDescriptor().Heights.VehicleZOffset };
+    for (auto vehicle = trainHead; vehicle != nullptr; vehicle = GetEntity<Vehicle>(vehicle->next_vehicle_on_train))
+    {
+        int32_t halfSpacing = vehicle->Entry()->spacing >> 1;
+        remainingDistance -= halfSpacing;
+        vehicle->remaining_distance = remainingDistance;
+        remainingDistance -= halfSpacing;
+
+        vehicle->Orientation = direction << 3;
+        vehicle->TrackLocation = trainPos;
+        vehicle->MoveTo(posOffset);
+        vehicle->SetTrackType(trackElement->GetTrackType());
+        vehicle->SetTrackDirection(direction);
+        vehicle->track_progress = 31;
+        vehicle->current_station = trackElement->GetStationIndex();
+
+        vehicle->SetState(Vehicle::Status::MovingToEndOfStation);
     }
 }
 
@@ -4956,7 +4995,7 @@ static int32_t RideGetTrackLength(const Ride& ride)
     for (const auto& station : ride.GetStations())
     {
         trackStart = station.GetStart();
-        if (trackStart.IsNull())
+        if (trackStart.IsNull() || station.Entrance.IsNull())
             continue;
 
         tileElement = MapGetFirstElementAt(trackStart);
@@ -5091,6 +5130,18 @@ void Ride::UpdateMaxVehicles()
             case RideMode::PoweredLaunch:
                 maxNumTrains = 1;
                 break;
+            case RideMode::WaterSlide:
+            {
+                int32_t trainLength = 0;
+                for (int32_t i = 0; i < newCarsPerTrain; i++)
+                {
+                    const auto& carEntry = rideEntry->Cars[RideEntryGetVehicleAtPosition(subtype, newCarsPerTrain, i)];
+                    trainLength += carEntry.spacing;
+                }
+                maxNumTrains = std::min(
+                    (RideGetTrackLength(*this) / (trainLength >> 9)) + 2, int32_t(OpenRCT2::Limits::MaxTrainsPerRide));
+                break;
+            }
             default:
                 // Calculate maximum number of trains
                 int32_t trainLength = 0;
