@@ -54,7 +54,7 @@ int32_t MphToDmps(int32_t mph)
 int32_t HeightUnitsToMetres(int32_t heightUnit)
 {
     // 1 unit = 0.75 metres
-    return (heightUnit >> 2) + (heightUnit >> 1);
+    return (heightUnit * 3) >> 2;
 }
 
 int32_t UtilBitScanForward(int32_t source)
