@@ -114,6 +114,7 @@ enum class RatingsModifierType : uint8_t
     BonusGForces,
     BonusTurns,
     BonusDrops,
+    BonusInversions,
     BonusSheltered,
     BonusProximity,
     BonusScenery,
@@ -497,6 +498,8 @@ constexpr std::string_view MUSIC_OBJECT_SUMMER = "rct2.music.summer";
 constexpr std::string_view MUSIC_OBJECT_TECHNO = "rct2.music.techno";
 constexpr std::string_view MUSIC_OBJECT_WATER = "rct2.music.water";
 constexpr std::string_view MUSIC_OBJECT_WILD_WEST = "rct2.music.wildwest";
+constexpr std::string_view MUSIC_OBJECT_ACID = "openrct2.music.acid";
+constexpr std::string_view MUSIC_OBJECT_MECHANICAL = "rct2.music.mechanical";
 
 constexpr const RideComponentName& GetRideComponentName(const RideComponentType type)
 {

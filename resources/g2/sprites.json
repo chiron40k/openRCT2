@@ -2656,10 +2656,114 @@
         "palette": "keep"
     },
     {
-        "path": "track/intamin/booster_1.png"
+        "path": "track/intamin/booster_1.png",
+        "x_offset": -22,
+        "y_offset": -4
     },
     {
-        "path": "track/intamin/booster_2.png"
+        "path": "track/intamin/booster_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/booster_alt_1.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/booster_alt_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/booster_alt_3.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/booster_alt_4.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_closed_1.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_closed_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_closed_3.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_closed_4.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_open_1.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_open_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_open_3.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/block_brake_alt_open_4.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_closed_1.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_closed_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_closed_3.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_closed_4.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_open_1.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_open_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_open_3.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/brake_alt_open_4.png",
+        "x_offset": -22,
+        "y_offset": -4
     },
     {
         "path": "track/intamin/brake_horizontal_background_open.png",
@@ -2698,25 +2802,69 @@
         "palette": "keep"
     },
     {
-        "path": "track/intamin/liftbooster_0.png",
+        "path": "track/intamin/drive_tyre_1.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/drive_tyre_2.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/drive_tyre_3.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/drive_tyre_4.png",
+        "x_offset": -22,
+        "y_offset": -4
+    },
+    {
+        "path": "track/intamin/liftbooster_1.png",
         "x_offset": -21,
         "y_offset": -20,
         "palette": "keep"
     },
     {
-        "path": "track/intamin/liftbooster_1.png",
+        "path": "track/intamin/liftbooster_2.png",
         "x_offset": -21,
         "y_offset": -4,
         "palette": "keep"
     },
     {
-        "path": "track/intamin/liftbooster_2.png",
+        "path": "track/intamin/liftbooster_3.png",
         "x_offset": -22,
         "y_offset": -4,
         "palette": "keep"
     },
     {
-        "path": "track/intamin/liftbooster_3.png",
+        "path": "track/intamin/liftbooster_4.png",
+        "x_offset": -22,
+        "y_offset": -20,
+        "palette": "keep"
+    },
+    {
+        "path": "track/intamin/liftbooster_alt_1.png",
+        "x_offset": -21,
+        "y_offset": -20,
+        "palette": "keep"
+    },
+    {
+        "path": "track/intamin/liftbooster_alt_2.png",
+        "x_offset": -21,
+        "y_offset": -5,
+        "palette": "keep"
+    },
+    {
+        "path": "track/intamin/liftbooster_alt_3.png",
+        "x_offset": -22,
+        "y_offset": -4,
+        "palette": "keep"
+    },
+    {
+        "path": "track/intamin/liftbooster_alt_4.png",
         "x_offset": -22,
         "y_offset": -20,
         "palette": "keep"
