@@ -1,6 +1,7 @@
 0.4.12 (in development)
 ------------------------------------------------------------------------
 - Feature: [#622] Add option to align the top toolbar buttons horizontally centred (off by default).
+- Feature: [#21574] [Plugin] Add more guest events to scripting API.
 - Feature: [#21714] [Plugin] Costume assignment is now tailored to each staff type.
 - Feature: [#21913] [Plugin] Allow precise and safe control of peep animations.
 - Improved: [#21981] Rendering performance of the map window has been improved considerably.
@@ -9,6 +10,7 @@
 - Improved: [#22026] The options window now stays centred when window scaling is changed.
 - Change: [#7248] Small mini-maps are now centred in the map window.
 - Fix: [#13294] Map corners are cut off in some directions (original bug).
+- Fix: [#17512] [Plugin] HookType missing values.
 - Fix: [#21974] No reason specified when attempting to place benches, lamps, or bins on path with no unconnected edges (original bug).
 - Fix: [#22008] Uninverted Lay-down roller coaster uses the wrong support type.
 - Fix: [#22012] [Plugin] Images on ImgButton widgets cannot be updated.
