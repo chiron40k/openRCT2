@@ -1550,11 +1550,6 @@ static Widget _rideConstructionWidgets[] = {
             if (_currentlyShowingBrakeOrBoosterSpeed)
             {
                 uint16_t brakeSpeed2 = ((_currentBrakeSpeed * 9) >> 2) & 0xFFFF;
-                if (TrackTypeIsBooster(_selectedTrackType)
-                    || TrackTypeIsBooster(_currentTrackCurve & ~RideConstructionSpecialPieceSelected))
-                {
-                    brakeSpeed2 = GetBoosterSpeed(currentRide->type, brakeSpeed2);
-                }
                 ft.Add<uint16_t>(brakeSpeed2);
             }
             else
