@@ -2,6 +2,7 @@
 ------------------------------------------------------------------------
 - Feature: [#15750] Allow using different types of park entrance in one park.
 - Feature: [#20942] Allow removing all park fences from the Cheats window.
+- Feature: [#21521] [Plugin] Add hook 'park.guest.softcap.calculate' called before calculating the soft guest cap.
 - Feature: [#21675] Guests ignore price limit cheat.
 - Feature: [#22206] Add option to randomise train or vehicle colours.
 - Feature: [#22392] [Plugin] Expose ride vehicle’s spin to the plugin API.
