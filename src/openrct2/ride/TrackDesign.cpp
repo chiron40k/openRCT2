@@ -238,12 +238,12 @@ ResultWithMessage TrackDesign::CreateTrackDesignTrack(TrackDesignState& tds, con
                 trackFlags = ride.GetRideTypeDescriptor().GetRelativeBoosterSpeed(trackFlags);
             }
 
-            // check to ensure the value is serializable. This warning will not apply to new track design format
+            // check to ensure the value is serialisable. This warning will not apply to new track design format.
             bool tooHigh = trackFlags > kLegacyBrakeSpeedMask;
             bool tooPrecise = trackFlags & 1;
             if (tooPrecise || tooHigh)
             {
-                warningMessage = STR_TRACK_DESIGN_SPEED_UNSERIALIZABLE;
+                warningMessage = STR_TRACK_DESIGN_SPEED_UNSERIALISABLE;
             }
             if (tooPrecise)
             {
