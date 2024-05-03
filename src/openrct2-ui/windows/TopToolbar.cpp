@@ -295,8 +295,6 @@ namespace OpenRCT2::Ui::Windows
     };
     // clang-format on
 
-    static void ScenarioSelectCallback(const utf8* path);
-
     class TopToolbar final : public Window
     {
     private:
@@ -2635,9 +2633,9 @@ namespace OpenRCT2::Ui::Windows
                     {
                         case DDIDX_NEW_GAME:
                         {
-                            auto intent = Intent(WindowClass::ScenarioSelect);
-                            intent.PutExtra(INTENT_EXTRA_CALLBACK, reinterpret_cast<void*>(ScenarioSelectCallback));
-                            ContextOpenIntent(&intent);
+                            auto loadOrQuitAction = LoadOrQuitAction(
+                                LoadOrQuitModes::OpenSavePrompt, PromptMode::SaveBeforeNewGame);
+                            GameActions::Execute(&loadOrQuitAction);
                             break;
                         }
                         case DDIDX_LOAD_GAME:
@@ -3327,15 +3325,6 @@ namespace OpenRCT2::Ui::Windows
             }
         }
     };
-
-    static void ScenarioSelectCallback(const utf8* path)
-    {
-        WindowCloseByClass(WindowClass::EditorObjectSelection);
-        GameNotifyMapChange();
-        GetContext()->LoadParkFromFile(path, false, true);
-        GameLoadScripts();
-        GameNotifyMapChanged();
-    }
 
     /**
      * Creates the main game top toolbar window.
