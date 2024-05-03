@@ -243,6 +243,7 @@ Appreciation for contributors who have provided substantial work, but are no lon
 * Kaavya Ramachandhran (ayvaak)
 * Mike Harvey (harvito)
 * Robert Yan (lewyche)
+* Tom Matalenas (tmatale)
 
 ## Toolchain
 * (Balletie) - macOS
