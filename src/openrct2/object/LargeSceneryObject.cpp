@@ -19,8 +19,52 @@
 #include "../localisation/Language.h"
 #include "../world/Banner.h"
 #include "../world/Location.hpp"
+#include "SceneryBoundbox.h"
 
 #include <iterator>
+
+static DefaultBoundBoxType boundBoxTypes[16] = {
+    DefaultBoundBoxType::FullTileBox,              // 0000
+    DefaultBoundBoxType::FullTileSouthQuadrantBox, // 0001
+    DefaultBoundBoxType::FullTileWestQuadrantBox,  // 0010
+    DefaultBoundBoxType::FullTileSouthwestSideBox, // 0011
+    DefaultBoundBoxType::FullTileNorthQuadrantBox, // 0100
+    DefaultBoundBoxType::FullTileBox,              // 0101 (diagonal of South and North corners)
+    DefaultBoundBoxType::FullTileNorthwestSideBox, // 0110
+    DefaultBoundBoxType::FullTileBox,              // 0111 (triangle of South, West, and North corners)
+    DefaultBoundBoxType::FullTileEastQuadrantBox,  // 1000
+    DefaultBoundBoxType::FullTileSoutheastSideBox, // 1001
+    DefaultBoundBoxType::FullTileBox,              // 1010 (diagonal of East and West corners)
+    DefaultBoundBoxType::FullTileBox,              // 1011 (triangle of South, West, and East corners)
+    DefaultBoundBoxType::FullTileNortheastSideBox, // 1100
+    DefaultBoundBoxType::FullTileBox,              // 1101 (triangle of South, West, and North corners)
+    DefaultBoundBoxType::FullTileBox,              // 1110 (triangle of West, North, and East corners)
+    DefaultBoundBoxType::FullTileBox,              // 1111
+};
+
+static int32_t getBoundBoxHeight(uint8_t clearanceHeight)
+{
+    return std::min<uint8_t>(clearanceHeight, 128) - 3;
+}
+
+static void SetTileBoundingBox(LargeSceneryTile& tile)
+{
+    if (tile.flags & 0xF00)
+    {
+        tile.boundBoxes = GetDefaultSceneryBoundBoxes(boundBoxTypes[(tile.flags & 0xF000) >> 12]);
+    }
+    else
+    {
+        tile.boundBoxes = GetDefaultSceneryBoundBoxes(DefaultBoundBoxType::FullTileLargeBox);
+    }
+    tile.spriteOffset = GetDefaultSpriteOffset(DefaultSpriteOffsetType::LargeSceneryOffset);
+
+    auto clearanceHeight = getBoundBoxHeight(tile.z_clearance);
+    for (uint8_t i = 0; i < NumOrthogonalDirections; i++)
+    {
+        tile.boundBoxes[i].length.z = clearanceHeight;
+    }
+}
 
 static RCTLargeSceneryText ReadLegacy3DFont(OpenRCT2::IStream& stream)
 {
@@ -167,6 +211,7 @@ std::vector<LargeSceneryTile> LargeSceneryObject::ReadTiles(OpenRCT2::IStream* s
         tile.z_offset = stream->ReadValue<int16_t>();
         tile.z_clearance = stream->ReadValue<uint8_t>();
         tile.flags = stream->ReadValue<uint16_t>();
+        SetTileBoundingBox(tile);
         return tile;
     };
 
@@ -255,6 +300,15 @@ std::vector<LargeSceneryTile> LargeSceneryObject::ReadJsonTiles(json_t& jTiles)
 
             auto walls = Json::GetNumber<int16_t>(jTile["walls"]);
             tile.flags |= (walls & 0xFF) << 8;
+            SetTileBoundingBox(tile);
+            auto jBBox = jTile["boundingBox"];
+            if (!jBBox.empty())
+            {
+                tile.boundBoxes = ReadBoundBoxes(jBBox, tile.boundBoxes[0].length.z, false);
+            }
+            auto jSpriteOffset = jTile["spriteOffsetCoordinates"];
+            if (!jSpriteOffset.empty())
+                tile.spriteOffset = ReadSpriteOffset(jSpriteOffset);
 
             tiles.push_back(std::move(tile));
         }

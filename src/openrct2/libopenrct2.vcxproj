@@ -341,6 +341,7 @@
     <ClInclude Include="object\ObjectTypes.h" />
     <ClInclude Include="object\ResourceTable.h" />
     <ClInclude Include="object\RideObject.h" />
+    <ClInclude Include="object\SceneryBoundbox.h" />
     <ClInclude Include="object\SceneryGroupEntry.h" />
     <ClInclude Include="object\SceneryGroupObject.h" />
     <ClInclude Include="object\SceneryObject.h" />
@@ -855,6 +856,7 @@
     <ClCompile Include="object\ObjectTypes.cpp" />
     <ClCompile Include="object\ResourceTable.cpp" />
     <ClCompile Include="object\RideObject.cpp" />
+    <ClCompile Include="object\SceneryBoundbox.cpp" />
     <ClCompile Include="object\SceneryGroupObject.cpp" />
     <ClCompile Include="object\SmallSceneryObject.cpp" />
     <ClCompile Include="object\StationObject.cpp" />
