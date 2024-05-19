@@ -1,6 +1,7 @@
 0.4.12 (in development)
 ------------------------------------------------------------------------
 - Feature: [#622] Add option to align the top toolbar buttons horizontally centred (off by default).
+- Feature: [#21574] [Plugin] Add more guest events to scripting API.
 - Feature: [#21714] [Plugin] Costume assignment is now tailored to each staff type.
 - Feature: [#21853] Enlarged UI mode.
 - Feature: [#21893] On launch, the game now indicates what system is being initialised.
@@ -14,6 +15,7 @@
 - Change: [#20240] Heavy snow and blizzards now make guests buy and use umbrellas.
 - Change: [#21214] Wacky Worlds and Time Twister’s scenario names now match their park names.
 - Fix: [#13294] Map corners are cut off in some directions (original bug).
+- Fix: [#17512] [Plugin] HookType missing values.
 - Fix: [#21974] No reason specified when attempting to place benches, lamps, or bins on path with no unconnected edges (original bug).
 - Fix: [#22008] Uninverted Lay-down roller coaster uses the wrong support type.
 - Fix: [#22012] [Plugin] Images on ImgButton widgets cannot be updated.
