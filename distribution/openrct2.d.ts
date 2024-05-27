@@ -4277,11 +4277,11 @@ declare global {
      */
     type WidgetType =
         "button" | "checkbox" | "colourpicker" | "custom" | "dropdown" | "groupbox" |
-        "label" | "listview" | "spinner" | "textbox" | "viewport";
+        "label" | "listview" | "progressbar" | "spinner" | "textbox" | "viewport";
 
     type Widget =
         ButtonWidget | CheckboxWidget | ColourPickerWidget | CustomWidget | DropdownWidget | GroupBoxWidget |
-        LabelWidget | ListViewWidget | SpinnerWidget | TextBoxWidget | ViewportWidget;
+        LabelWidget | ListViewWidget | ProgressBarWidget | SpinnerWidget | TextBoxWidget | ViewportWidget;
 
     type IconName = 
         "arrow_down" | "arrow_up" | "award" | "awards" | "chain_lift" | "chat" | "cheats" | "closed" | "construction" |
@@ -4367,7 +4367,6 @@ declare global {
         textAlign: TextAlignment;
     }
 
-
     type SortOrder = "none" | "ascending" | "descending";
 
     type ScrollbarType = "none" | "horizontal" | "vertical" | "both";
@@ -4402,6 +4401,25 @@ declare global {
         canSelect: boolean;
     }
 
+    interface ProgressBarWidget extends WidgetBase {
+        colour: number;
+        /**
+         * The percentage of the bar to fill, ranging from 0-100 (inclusive).
+         */
+        percentage: number;
+        /**
+         * Used to specify a range of values between which the bar will start blinking.
+         * The bar will blink when lowerBlinkBound <= percentage <= upperBlinkBound.
+         * Set both upper and lower bounds to the same value to disable blinking.
+         */
+        lowerBlinkBound: number;
+        /**
+         * Used to specify a range of values between which the bar will start blinking.
+         * The bar will blink when lowerBlinkBound <= percentage <= upperBlinkBound.
+         * Set both upper and lower bounds to the same value to disable blinking.
+         */
+        upperBlinkBound: number;
+    }
     interface SpinnerWidget extends WidgetBase {
         type: "spinner";
         text: string;
@@ -4451,7 +4469,7 @@ declare global {
 
     type WidgetDesc =
         ButtonDesc | CheckboxDesc | ColourPickerDesc | CustomDesc | DropdownDesc | GroupBoxDesc |
-        LabelDesc | ListViewDesc | SpinnerDesc | TextBoxDesc | ViewportDesc;
+        LabelDesc | ListViewDesc | ProgressBarDesc | SpinnerDesc | TextBoxDesc | ViewportDesc;
 
     interface WidgetBaseDesc {
         type: WidgetType;
@@ -4535,6 +4553,14 @@ declare global {
         canSelect?: boolean;
         onHighlight?: (item: number, column: number) => void;
         onClick?: (item: number, column: number) => void;
+    }
+
+    interface ProgressBarDesc extends WidgetBaseDesc {
+        type: "progressbar";
+        colour?: number;
+        percentage?: number;
+        lowerBlinkBound?: number;
+        upperBlinkBound?: number;
     }
 
     interface SpinnerDesc extends WidgetBaseDesc {

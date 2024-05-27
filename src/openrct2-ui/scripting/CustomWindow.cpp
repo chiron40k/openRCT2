@@ -20,6 +20,7 @@
 #    include "ScUi.hpp"
 #    include "ScWindow.hpp"
 
+#    include <algorithm>
 #    include <limits>
 #    include <openrct2/drawing/Drawing.h>
 #    include <openrct2/interface/Window.h>
@@ -65,6 +66,9 @@ namespace OpenRCT2::Ui::Windows
         std::string Text;
         TextAlignment TextAlign{};
         colour_t Colour{};
+        uint8_t Percentage{};      // progress bar value
+        uint8_t LowerBlinkBound{}; // progress bar will blink when above the lower bound
+        uint8_t UpperBlinkBound{}; // and below upper bound
         std::string Tooltip;
         std::vector<std::string> Items;
         std::vector<ListViewItem> ListViewItems;
@@ -176,6 +180,17 @@ namespace OpenRCT2::Ui::Windows
                     result.Scrollbars = ScrollbarType::Vertical;
                 else
                     result.Scrollbars = FromDuk<ScrollbarType>(desc["scrollbars"]);
+            }
+            else if (result.Type == "progressbar")
+            {
+                result.Percentage = AsOrDefault(desc["percentage"], 0);
+                result.LowerBlinkBound = AsOrDefault(desc["lowerBlinkBound"], 0);
+                result.UpperBlinkBound = AsOrDefault(desc["upperBlinkBound"], 0);
+                auto colour = AsOrDefault(desc["colour"], 1); // use white for the
+                if (colour < COLOUR_COUNT)
+                {
+                    result.Colour = colour;
+                }
             }
             else if (result.Type == "spinner")
             {
@@ -1052,6 +1067,15 @@ namespace OpenRCT2::Ui::Windows
                     widget.content = SCROLL_VERTICAL;
                 else if (desc.Scrollbars == ScrollbarType::Both)
                     widget.content = SCROLL_BOTH;
+                widgetList.push_back(widget);
+            }
+            else if (desc.Type == "progressbar")
+            {
+                widget.type = WindowWidgetType::ProgressBar;
+                widget.colour = desc.Colour;
+
+                auto clampedPercent = std::clamp(desc.Percentage, static_cast<uint8_t>(0), static_cast<uint8_t>(100));
+                widget.content = clampedPercent | (desc.LowerBlinkBound << 8) | (desc.UpperBlinkBound << 16);
                 widgetList.push_back(widget);
             }
             else if (desc.Type == "spinner")
