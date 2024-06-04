@@ -1340,6 +1340,17 @@ static Widget _rideConstructionWidgets[] = {
                     else
                     {
                         auto trackSpeedMaximum = kMaximumTrackSpeed;
+                        auto ride = GetRide(_currentRideIndex);
+                        if (ride != nullptr)
+                        {
+                            auto rtd = ride->GetRideTypeDescriptor();
+                            trackSpeedMaximum = rtd.TrackSpeedSettings.BrakesMaxSpeed;
+                            if (TrackTypeIsBooster(_selectedTrackType)
+                                || TrackTypeIsBooster(_currentTrackCurve & ~RideConstructionSpecialPieceSelected))
+                            {
+                                trackSpeedMaximum = rtd.TrackSpeedSettings.BoosterMaxSpeed;
+                            }
+                        }
                         auto trackSpeedIncrement = kDefaultSpeedIncrement;
                         uint8_t brakesSpeed = std::min<int16_t>(trackSpeedMaximum, _currentBrakeSpeed + trackSpeedIncrement);
                         if (brakesSpeed != _currentBrakeSpeed)
@@ -1457,9 +1468,30 @@ static Widget _rideConstructionWidgets[] = {
                     _currentTrackRollEnd = TrackRoll::None;
                     _currentTrackLiftHill &= ~CONSTRUCTION_LIFT_HILL_SELECTED;
                     break;
-                case TrackElemType::BlockBrakes:
-                case TrackElemType::DiagBlockBrakes:
+            }
+            if (!GetGameState().Cheats.UnlockOperatingLimits)
+            {
+                auto ride = GetRide(_currentRideIndex);
+                auto boosterMaxSpeed = kMaximumTrackSpeed;
+                auto brakesMaxSpeed = kMaximumTrackSpeed;
+                if (ride != nullptr)
+                {
+                    auto rtd = ride->GetRideTypeDescriptor();
+                    boosterMaxSpeed = rtd.TrackSpeedSettings.BoosterMaxSpeed;
+                    brakesMaxSpeed = rtd.TrackSpeedSettings.BrakesMaxSpeed;
+                }
+                if (TrackTypeIsBlockBrakes(trackPiece))
+                {
                     _currentBrakeSpeed = kRCT2DefaultBlockBrakeSpeed;
+                }
+                else if (TrackTypeIsBooster(trackPiece))
+                {
+                    _currentBrakeSpeed = std::min(_currentBrakeSpeed, boosterMaxSpeed);
+                }
+                else if (TrackTypeHasSpeedSetting(trackPiece))
+                {
+                    _currentBrakeSpeed = std::min(_currentBrakeSpeed, brakesMaxSpeed);
+                }
             }
             _currentTrackCurve = trackPiece | RideConstructionSpecialPieceSelected;
             WindowRideConstructionUpdateActiveElements();
