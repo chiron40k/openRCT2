@@ -7109,7 +7109,7 @@ Loc6DAEB9:
     }
     else if (TrackTypeIsBooster(trackType))
     {
-        auto boosterSpeed = GetBoosterSpeed(curRide.type, brake_speed) << kTrackSpeedShiftAmount;
+        auto boosterSpeed = GetAbsoluteBoosterSpeed(curRide.type, brake_speed) << kTrackSpeedShiftAmount;
         if (boosterSpeed > _vehicleVelocityF64E08)
         {
             acceleration = GetRideTypeDescriptor(curRide.type).LegacyBoosterSettings.BoosterAcceleration
