@@ -2123,14 +2123,14 @@ namespace OpenRCT2
             auto rtd = entity.GetRide()->GetRideTypeDescriptor();
             if (trackType == TrackElemType::Booster)
             {
-                entity.BoosterAcceleration = rtd.OperatingSettings.BoosterAcceleration;
+                entity.BoosterAcceleration = rtd.LegacyBoosterSettings.BoosterAcceleration;
                 brakeSpeed = rtd.GetAbsoluteBoosterSpeed(brakeSpeed);
             }
             else if (
                 (trackType == TrackElemType::PoweredLift)
-                || (trackType == TrackElemType::Flat && entity.GetRide()->type == RIDE_TYPE_REVERSE_FREEFALL_COASTER))
+                || (trackType == TrackElemType::Flat && rtd.HasFlag(RIDE_TYPE_FLAG_LSM_BEHAVIOUR_ON_FLAT)))
             {
-                entity.BoosterAcceleration = rtd.OperatingSettings.PoweredLiftAcceleration;
+                entity.BoosterAcceleration = rtd.BoosterSettings.PoweredLiftAcceleration;
                 entity.SetFlag(VehicleFlags::OnPoweredLift);
             }
             entity.brake_speed = brakeSpeed * kLegacyBrakeSpeedMultiplier;
@@ -2166,7 +2166,6 @@ namespace OpenRCT2
                 entity.SetFlag(VehicleFlags::Crashed);
             }
         }
-
         if (cs.GetMode() == OrcaStream::Mode::READING && os.GetHeader().TargetVersion < BlockBrakeImprovementsVersion)
         {
             entity.BlockBrakeSpeed = kRCT2DefaultBlockBrakeSpeed;

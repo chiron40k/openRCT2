@@ -2595,17 +2595,18 @@ namespace RCT2
 
         dst->brake_speed = src->BrakeSpeed * kLegacyBrakeSpeedMultiplier;
 
+        auto rtd = GetRideTypeDescriptor(ride.Type);
         dst->SetFlag(VehicleFlags::LegacyBoosterSpeed);
         if ((dst->GetTrackType() == TrackElemType::PoweredLift)
-            || (dst->GetTrackType() == TrackElemType::Flat && ride.Type == RIDE_TYPE_REVERSE_FREEFALL_COASTER))
+            || (dst->GetTrackType() == TrackElemType::Flat && rtd.HasFlag(RIDE_TYPE_FLAG_LSM_BEHAVIOUR_ON_FLAT)))
         {
-            dst->BoosterAcceleration = GetRideTypeDescriptor(ride.Type).OperatingSettings.PoweredLiftAcceleration;
+            dst->BoosterAcceleration = GetRideTypeDescriptor(ride.Type).BoosterSettings.PoweredLiftAcceleration;
             dst->SetFlag(VehicleFlags::OnPoweredLift);
         }
         else if (dst->GetTrackType() == TrackElemType::Booster)
         {
             dst->brake_speed = GetRideTypeDescriptor(ride.Type).GetAbsoluteBoosterSpeed(dst->brake_speed);
-            dst->BoosterAcceleration = GetRideTypeDescriptor(ride.Type).OperatingSettings.BoosterAcceleration;
+            dst->BoosterAcceleration = GetRideTypeDescriptor(ride.Type).LegacyBoosterSettings.BoosterAcceleration;
         }
 
         dst->lost_time_out = src->LostTimeOut;

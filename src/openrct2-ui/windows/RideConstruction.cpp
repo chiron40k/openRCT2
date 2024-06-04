@@ -47,8 +47,8 @@
 #include <openrct2/world/Footpath.h>
 #include <openrct2/world/Park.h>
 
-constexpr int8_t kDefaultSpeedIncrement = 2;
-constexpr int8_t kDefaultMinimumSpeed = 2;
+constexpr int8_t kDefaultSpeedIncrement = 1;
+constexpr int8_t kDefaultMinimumSpeed = 1;
 
 using namespace OpenRCT2::TrackMetaData;
 namespace OpenRCT2::Ui::Windows

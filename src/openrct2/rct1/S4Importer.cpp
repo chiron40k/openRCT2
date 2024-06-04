@@ -2925,17 +2925,18 @@ namespace RCT1
         dst->BlockBrakeSpeed = kRCT2DefaultBlockBrakeSpeed;
         dst->Flags = src->UpdateFlags;
 
+        auto rtd = dst->GetRide()->GetRideTypeDescriptor();
         dst->SetFlag(VehicleFlags::LegacyBoosterSpeed);
         if ((dst->GetTrackType() == TrackElemType::PoweredLift)
-            || (dst->GetTrackType() == TrackElemType::Flat && ride->type == RIDE_TYPE_REVERSE_FREEFALL_COASTER))
+            || (dst->GetTrackType() == TrackElemType::Flat && rtd.HasFlag(RIDE_TYPE_FLAG_LSM_BEHAVIOUR_ON_FLAT)))
         {
-            dst->BoosterAcceleration = ride->GetRideTypeDescriptor().OperatingSettings.PoweredLiftAcceleration;
+            dst->BoosterAcceleration = ride->GetRideTypeDescriptor().BoosterSettings.PoweredLiftAcceleration;
             dst->SetFlag(VehicleFlags::OnPoweredLift);
         }
         else if (dst->GetTrackType() == TrackElemType::Booster)
         {
             dst->brake_speed = ride->GetRideTypeDescriptor().GetAbsoluteBoosterSpeed(dst->brake_speed);
-            dst->BoosterAcceleration = ride->GetRideTypeDescriptor().OperatingSettings.BoosterAcceleration;
+            dst->BoosterAcceleration = ride->GetRideTypeDescriptor().LegacyBoosterSettings.BoosterAcceleration;
         }
         dst->track_progress = src->TrackProgress;
         dst->vertical_drop_countdown = src->VerticalDropCountdown;
