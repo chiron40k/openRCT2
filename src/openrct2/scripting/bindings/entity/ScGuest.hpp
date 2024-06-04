@@ -12,6 +12,7 @@
 #ifdef ENABLE_SCRIPTING
 
 #    include "../../../entity/Guest.h"
+#    include "../ride/ScRide.hpp"
 #    include "ScPeep.hpp"
 
 enum class PeepActionSpriteType : uint8_t;
@@ -169,6 +170,9 @@ namespace OpenRCT2::Scripting
 
         DukValue favouriteRide_get() const;
         void favouriteRide_set(const DukValue& value);
+
+        DukValue rideHeadedTo_get() const;
+        void rideHeadedTo_set(const DukValue value);
 
         DukValue thoughts_get() const;
 
