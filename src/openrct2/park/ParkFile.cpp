@@ -66,7 +66,7 @@
 #include <vector>
 
 constexpr uint32_t BlockBrakeImprovementsVersion = 27;
-constexpr uint32_t UnifyBoosterSpeedVersion = 33;
+constexpr uint32_t UnifyBoosterSpeedVersion = 34;
 
 using namespace OpenRCT2;
 
