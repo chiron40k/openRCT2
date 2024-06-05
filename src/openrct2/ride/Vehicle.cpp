@@ -5440,7 +5440,7 @@ void Vehicle::ApplyNonStopBlockBrake()
     if (velocity >= 0)
     {
         // If the vehicle is below the speed limit
-        if (velocity <= kBlockBrakeBaseSpeed)
+        if (velocity < kBlockBrakeBaseSpeed)
         {
             // Boost it to the fixed block brake speed
             velocity = kBlockBrakeBaseSpeed;
