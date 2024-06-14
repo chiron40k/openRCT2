@@ -3417,6 +3417,10 @@ static Vehicle* VehicleCreateCar(
             vehicle->SubType = carIndex == (ride.num_cars_per_train - 1) ? Vehicle::Type::Head : Vehicle::Type::Tail;
             vehicle->SetFlag(VehicleFlags::CarIsReversed);
         }
+        if (ride.HasLifecycleFlag(RIDE_LIFECYCLE_LEGACY_BOOSTER_SPEED))
+        {
+            vehicle->SetFlag(VehicleFlags::LegacyBoosterSpeed);
+        }
     }
 
     // Loc6DDD5E:
@@ -5219,6 +5223,12 @@ void Ride::SetReversedTrains(bool reverseTrains)
     GameActions::Execute(&rideSetVehicleAction);
 }
 
+void Ride::SetLegacyBoosterSpeed(bool useLegacySpeed)
+{
+    auto rideSetVehicleAction = RideSetVehicleAction(id, RideSetVehicleType::LegacyBoosterSpeed, useLegacySpeed);
+    GameActions::Execute(&rideSetVehicleAction);
+}
+
 void Ride::SetToDefaultInspectionInterval()
 {
     uint8_t defaultInspectionInterval = Config::Get().general.DefaultInspectionInterval;
@@ -5442,10 +5452,9 @@ bool RideHasRatings(const Ride& ride)
     return ride.excitement != kRideRatingUndefined;
 }
 
-int32_t GetBoosterSpeed(ride_type_t rideType, int32_t rawSpeed)
+int32_t GetAbsoluteBoosterSpeed(ride_type_t rideType, int32_t relativeSpeed)
 {
-    // BoosterSpeedFactor has valid values of 1, 2, 4 representing a 1/2, 1, and 2 multiplier.
-    return rawSpeed * GetRideTypeDescriptor(rideType).LegacyBoosterSettings.BoosterSpeedFactor / 2;
+    return GetRideTypeDescriptor(rideType).GetAbsoluteBoosterSpeed(relativeSpeed);
 }
 
 void FixInvalidVehicleSpriteSizes()

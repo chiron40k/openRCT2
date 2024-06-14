@@ -3715,6 +3715,9 @@ STR_6640    :Edit asset packs…
 STR_6641    :Loading/progress window
 STR_6642    :{STRING} ({COMMA32} / {COMMA32})
 STR_6643    :{STRING} ({COMMA32} / {COMMA32} KiB)
+STR_6644    :Track’s speed is un-savable in current track design format. Speeds too high are capped to maximum, speeds at invalid intervals are rounded up.
+STR_6645    :Legacy booster speeds
+STR_6645    :Use old methods of getting brake and booster speeds. Not recommended for new work.
 
 #############
 # Scenarios #

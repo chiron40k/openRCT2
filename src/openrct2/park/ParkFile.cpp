@@ -44,6 +44,7 @@
 #include "../object/ObjectManager.h"
 #include "../object/ObjectRepository.h"
 #include "../peep/RideUseSystem.h"
+#include "../ride/RideData.h"
 #include "../ride/ShopItem.h"
 #include "../ride/Vehicle.h"
 #include "../scenario/Scenario.h"
@@ -65,6 +66,7 @@
 #include <vector>
 
 constexpr uint32_t BlockBrakeImprovementsVersion = 27;
+constexpr uint32_t UnifyBoosterSpeedVersion = 34;
 
 using namespace OpenRCT2;
 
@@ -1102,12 +1104,21 @@ namespace OpenRCT2
                                     {
                                         it.element->SetInvisible(true);
                                     }
-                                    if (os.GetHeader().TargetVersion < BlockBrakeImprovementsVersion)
+                                    if (os.GetHeader().TargetVersion < UnifyBoosterSpeedVersion)
                                     {
-                                        if (trackType == TrackElemType::Brakes)
-                                            trackElement->SetBrakeClosed(true);
-                                        if (trackType == TrackElemType::BlockBrakes)
-                                            trackElement->SetBrakeBoosterSpeed(kRCT2DefaultBlockBrakeSpeed);
+                                        auto brakeSpeed = trackElement->GetBrakeBoosterSpeed() * kLegacyBrakeSpeedMultiplier;
+                                        if (trackType == TrackElemType::Booster)
+                                        {
+                                            brakeSpeed = GetAbsoluteBoosterSpeed(trackElement->GetRideType(), brakeSpeed);
+                                        }
+                                        if (os.GetHeader().TargetVersion < BlockBrakeImprovementsVersion)
+                                        {
+                                            if (trackType == TrackElemType::Brakes)
+                                                trackElement->SetBrakeClosed(true);
+                                            if (trackType == TrackElemType::BlockBrakes)
+                                                brakeSpeed = kRCT2DefaultBlockBrakeSpeed;
+                                        }
+                                        trackElement->SetBrakeBoosterSpeed(brakeSpeed);
                                     }
                                 }
                                 else if (
@@ -1297,6 +1308,8 @@ namespace OpenRCT2
                     cs.ReadWrite(ride.status);
                     cs.ReadWrite(ride.depart_flags);
                     cs.ReadWrite(ride.lifecycle_flags);
+                    if (version < UnifyBoosterSpeedVersion)
+                        ride.SetLifecycleFlag(RIDE_LIFECYCLE_LEGACY_BOOSTER_SPEED, true);
 
                     // Meta
                     cs.ReadWrite(ride.custom_name);
@@ -2100,13 +2113,36 @@ namespace OpenRCT2
         cs.ReadWrite(entity.scream_sound_id);
         cs.ReadWrite(entity.TrackSubposition);
         cs.ReadWrite(entity.NumLaps);
-        if (cs.GetMode() == OrcaStream::Mode::READING && os.GetHeader().TargetVersion < BlockBrakeImprovementsVersion)
+
+        if (cs.GetMode() == OrcaStream::Mode::READING && os.GetHeader().TargetVersion < UnifyBoosterSpeedVersion)
         {
+            entity.SetFlag(VehicleFlags::LegacyBoosterSpeed);
             uint8_t brakeSpeed;
             cs.ReadWrite(brakeSpeed);
-            if (entity.GetTrackType() == TrackElemType::BlockBrakes)
-                brakeSpeed = kRCT2DefaultBlockBrakeSpeed;
-            entity.brake_speed = brakeSpeed;
+            auto trackType = entity.GetTrackType();
+            auto rtd = entity.GetRide()->GetRideTypeDescriptor();
+            if (trackType == TrackElemType::Booster)
+            {
+                entity.BoosterAcceleration = rtd.LegacyBoosterSettings.BoosterAcceleration;
+                brakeSpeed = rtd.GetAbsoluteBoosterSpeed(brakeSpeed);
+            }
+            else if (
+                (trackType == TrackElemType::PoweredLift)
+                || (trackType == TrackElemType::Flat && rtd.HasFlag(RIDE_TYPE_FLAG_LSM_BEHAVIOUR_ON_FLAT)))
+            {
+                entity.BoosterAcceleration = rtd.BoosterSettings.PoweredLiftAcceleration;
+                entity.SetFlag(VehicleFlags::OnPoweredLift);
+            }
+            entity.brake_speed = brakeSpeed * kLegacyBrakeSpeedMultiplier;
+
+            if (os.GetHeader().TargetVersion < BlockBrakeImprovementsVersion)
+            {
+                if (entity.GetTrackType() == TrackElemType::BlockBrakes)
+                {
+                    entity.brake_speed = kRCT2DefaultBlockBrakeSpeed;
+                }
+                entity.BlockBrakeSpeed = entity.brake_speed;
+            }
         }
         else
         {
@@ -2137,6 +2173,11 @@ namespace OpenRCT2
         else
         {
             cs.ReadWrite(entity.BlockBrakeSpeed);
+        }
+
+        if (os.GetHeader().TargetVersion >= UnifyBoosterSpeedVersion)
+        {
+            cs.ReadWrite(entity.BoosterAcceleration);
         }
     }
 

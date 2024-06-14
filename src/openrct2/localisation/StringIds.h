@@ -1692,6 +1692,11 @@ enum : StringId
     STR_STRING_M_OF_N = 6642,
     STR_STRING_M_OF_N_KIB = 6643,
 
+    STR_TRACK_DESIGN_SPEED_UNSERIALISABLE = 6644,
+    STR_RIDE_SET_VEHICLE_LEGACY_SPEED_FAIL = 6645,
+    STR_OPTION_USE_LEGACY_SPEED = 6646,
+    STR_OPTION_USE_LEGACY_SPEED_TIP = 6647,
+
     // Have to include resource strings (from scenarios and objects) for the time being now that language is partially working
     /* MAX_STR_COUNT = 32768 */ // MAX_STR_COUNT - upper limit for number of strings, not the current count strings
 };
