@@ -22,7 +22,6 @@
 #include "../drawing/Drawing.h"
 #include "../interface/Cursors.h"
 #include "../localisation/Formatting.h"
-#include "../localisation/Localisation.h"
 #include "../localisation/StringIds.h"
 #include "../platform/Platform.h"
 #include "../ride/RideAudio.h"
@@ -1389,6 +1388,10 @@ void WindowResizeGui(int32_t width, int32_t height)
         titleWind->windowPos.x = (width - titleWind->width) / 2;
         titleWind->windowPos.y = height - 182;
     }
+
+    WindowBase* versionWind = WindowFindByClass(WindowClass::TitleVersion);
+    if (versionWind != nullptr)
+        versionWind->windowPos.y = height - 30;
 
     WindowBase* exitWind = WindowFindByClass(WindowClass::TitleExit);
     if (exitWind != nullptr)

@@ -48,9 +48,8 @@
 #include "interface/InteractiveConsole.h"
 #include "interface/StdInOutConsole.h"
 #include "interface/Viewport.h"
-#include "localisation/Date.h"
 #include "localisation/Formatter.h"
-#include "localisation/Localisation.h"
+#include "localisation/Localisation.Date.h"
 #include "localisation/LocalisationService.h"
 #include "network/DiscordService.h"
 #include "network/NetworkBase.h"
@@ -196,6 +195,7 @@ namespace OpenRCT2
 #endif
 
             GameActions::ClearQueue();
+            _replayManager->StopRecording(true);
 #ifndef DISABLE_NETWORK
             _network.Close();
 #endif
