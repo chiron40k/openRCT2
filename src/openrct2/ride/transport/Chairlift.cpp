@@ -22,6 +22,8 @@
 
 #include <iterator>
 
+using namespace OpenRCT2;
+
 static constexpr MetalSupportType kSupportType = MetalSupportType::Truss;
 
 enum
@@ -527,7 +529,7 @@ static void ChairliftPaint25DegUpToFlat(
             imageId = session.SupportColours.WithIndex(SPR_20525);
             PaintAddImageAsParent(session, imageId, { 0, 0, height }, { { 14, 14, height + 1 }, { 4, 4, 25 } });
 
-            PaintUtilPushTunnelRight(session, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRight(session, height + 8, TunnelType::SquareFlatTo25Deg);
             break;
 
         case 2:
@@ -537,7 +539,7 @@ static void ChairliftPaint25DegUpToFlat(
             imageId = session.SupportColours.WithIndex(SPR_20526);
             PaintAddImageAsParent(session, imageId, { 0, 0, height }, { { 14, 14, height + 1 }, { 4, 4, 25 } });
 
-            PaintUtilPushTunnelLeft(session, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelLeft(session, height + 8, TunnelType::SquareFlatTo25Deg);
             break;
 
         case 3:

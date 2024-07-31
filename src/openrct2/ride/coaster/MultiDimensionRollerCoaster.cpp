@@ -21,6 +21,8 @@
 #include "../TrackData.h"
 #include "../TrackPaint.h"
 
+using namespace OpenRCT2;
+
 static constexpr MetalSupportType kSupportType = MetalSupportType::TubesInverted;
 
 static constexpr uint32_t MULTI_DIM_STATION_BLOCK_BRAKE_SW_NE_OPEN = 15812;
@@ -882,7 +884,7 @@ static void MultiDimensionRCTrack25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(session, kSegmentsAll, 0xFFFF, 0);
         PaintUtilSetGeneralSupportHeight(session, height + 40);
@@ -944,7 +946,7 @@ static void MultiDimensionRCTrack25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 40);
     }
@@ -2455,7 +2457,7 @@ static void MultiDimensionRCTrack25DegUpToLeftBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(session, kSegmentsAll, 0xFFFF, 0);
         PaintUtilSetGeneralSupportHeight(session, height + 40);
@@ -2523,7 +2525,7 @@ static void MultiDimensionRCTrack25DegUpToLeftBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 40);
     }
@@ -2575,7 +2577,7 @@ static void MultiDimensionRCTrack25DegUpToRightBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(session, kSegmentsAll, 0xFFFF, 0);
         PaintUtilSetGeneralSupportHeight(session, height + 40);
@@ -2643,7 +2645,7 @@ static void MultiDimensionRCTrack25DegUpToRightBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 40);
     }

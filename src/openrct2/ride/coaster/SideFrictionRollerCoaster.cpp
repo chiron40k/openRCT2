@@ -21,6 +21,8 @@
 #include "../TrackData.h"
 #include "../TrackPaint.h"
 
+using namespace OpenRCT2;
+
 static constexpr WoodenSupportType kSupportType = WoodenSupportType::Truss;
 
 constexpr int32_t SPR_SIDE_FRICTION_60_DEG_UP_DIR_0_B = 21658;
@@ -516,7 +518,7 @@ static void SideFrictionRCTrack25DegUpToFlat(
     }
     else
     {
-        PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+        PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
     }
     PaintUtilSetSegmentSupportHeight(session, kSegmentsAll, 0xFFFF, 0);
     PaintUtilSetGeneralSupportHeight(session, height + 40);

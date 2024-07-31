@@ -24,6 +24,8 @@
 #include "../world/Footpath.h"
 #include "../world/Park.h"
 
+using namespace OpenRCT2;
+
 using namespace OpenRCT2::TrackMetaData;
 
 // clang-format off
@@ -122,7 +124,7 @@ GameActions::Result MazeSetTrackAction::Query() const
     auto heightDifference = baseHeight - surfaceElement->GetBaseZ();
     if (heightDifference >= 0 && !OpenRCT2::GetGameState().Cheats.DisableSupportLimits)
     {
-        heightDifference /= COORDS_Z_PER_TINY_Z;
+        heightDifference /= kCoordsZPerTinyZ;
 
         auto* ride = GetRide(_rideIndex);
         const auto& rtd = ride->GetRideTypeDescriptor();

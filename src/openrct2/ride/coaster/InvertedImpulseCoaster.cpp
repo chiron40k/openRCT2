@@ -21,6 +21,8 @@
 #include "../TrackData.h"
 #include "../TrackPaint.h"
 
+using namespace OpenRCT2;
+
 static constexpr MetalSupportType kSupportType = MetalSupportType::TubesInverted;
 
 /** rct2: 0x008B0460 */
@@ -395,7 +397,7 @@ static void InvertedImpulseRCTrack25DegUpToFlat(
     }
     else
     {
-        PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_13);
+        PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::InvertedFlatTo25Deg);
     }
     PaintUtilSetGeneralSupportHeight(session, height + 56);
 }

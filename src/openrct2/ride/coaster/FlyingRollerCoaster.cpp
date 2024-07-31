@@ -22,6 +22,8 @@
 #include "../TrackPaint.h"
 #include "BolligerMabillardTrack.hpp"
 
+using namespace OpenRCT2;
+
 static constexpr MetalSupportType kSupportType = MetalSupportType::TubesInverted;
 
 static constexpr const uint32_t InvertedRCDiagBrakeImages[kNumOrthogonalDirections] = {
@@ -910,7 +912,7 @@ static void FlyingRCTrack25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(
             session, PaintUtilRotateSegments(BlockedSegments::kStraightFlat, direction), 0xFFFF, 0);
@@ -1002,7 +1004,7 @@ static void FlyingRCTrack25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 40);
     }
@@ -2533,7 +2535,7 @@ static void FlyingRCTrack25DegUpToLeftBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(
             session, PaintUtilRotateSegments(BlockedSegments::kStraightFlat, direction), 0xFFFF, 0);
@@ -2602,7 +2604,7 @@ static void FlyingRCTrack25DegUpToLeftBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 40);
     }
@@ -2654,7 +2656,7 @@ static void FlyingRCTrack25DegUpToRightBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(
             session, PaintUtilRotateSegments(BlockedSegments::kStraightFlat, direction), 0xFFFF, 0);
@@ -2723,7 +2725,7 @@ static void FlyingRCTrack25DegUpToRightBank(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 40);
     }
@@ -19071,7 +19073,7 @@ static void FlyingRCTrackLeftBanked25DegUpToLeftBankedFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 56);
     }
@@ -19117,7 +19119,7 @@ static void FlyingRCTrackRightBanked25DegUpToRightBankedFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(
             session, PaintUtilRotateSegments(BlockedSegments::kStraightFlat, direction), 0xFFFF, 0);
@@ -19180,7 +19182,7 @@ static void FlyingRCTrackRightBanked25DegUpToRightBankedFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 56);
     }
@@ -19485,7 +19487,7 @@ static void FlyingRCTrackLeftBanked25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(
             session, PaintUtilRotateSegments(BlockedSegments::kStraightFlat, direction), 0xFFFF, 0);
@@ -19548,7 +19550,7 @@ static void FlyingRCTrackLeftBanked25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 56);
     }
@@ -19597,7 +19599,7 @@ static void FlyingRCTrackRightBanked25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetSegmentSupportHeight(
             session, PaintUtilRotateSegments(BlockedSegments::kStraightFlat, direction), 0xFFFF, 0);
@@ -19660,7 +19662,7 @@ static void FlyingRCTrackRightBanked25DegUpToFlat(
         }
         else
         {
-            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_14);
+            PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::SquareFlatTo25Deg);
         }
         PaintUtilSetGeneralSupportHeight(session, height + 56);
     }

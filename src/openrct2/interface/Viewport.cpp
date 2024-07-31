@@ -799,7 +799,7 @@ void ViewportUpdateSmartFollowGuest(WindowBase* window, const Guest& peep)
 
     bool overallFocus = true;
     if (peep.State == PeepState::OnRide || peep.State == PeepState::EnteringRide
-        || (peep.State == PeepState::LeavingRide && peep.x == LOCATION_NULL))
+        || (peep.State == PeepState::LeavingRide && peep.x == kLocationNull))
     {
         auto ride = GetRide(peep.CurrentRide);
         if (ride != nullptr && (ride->lifecycle_flags & RIDE_LIFECYCLE_ON_TRACK))
@@ -818,7 +818,7 @@ void ViewportUpdateSmartFollowGuest(WindowBase* window, const Guest& peep)
         }
     }
 
-    if (peep.x == LOCATION_NULL && overallFocus)
+    if (peep.x == kLocationNull && overallFocus)
     {
         auto ride = GetRide(peep.CurrentRide);
         if (ride != nullptr)
@@ -827,7 +827,7 @@ void ViewportUpdateSmartFollowGuest(WindowBase* window, const Guest& peep)
             CoordsXYZ coordFocus;
             coordFocus.x = xy.x;
             coordFocus.y = xy.y;
-            coordFocus.z = TileElementHeight(xy) + (4 * COORDS_Z_STEP);
+            coordFocus.z = TileElementHeight(xy) + (4 * kCoordsZStep);
             focus = Focus(coordFocus);
             window->viewport_target_sprite = EntityId::GetNull();
         }
@@ -927,6 +927,9 @@ void ViewportRotateAll(int32_t direction)
  */
 void ViewportRender(DrawPixelInfo& dpi, const Viewport* viewport, const ScreenRect& screenRect)
 {
+    if (viewport->flags & VIEWPORT_FLAG_RENDERING_INHIBITED)
+        return;
+
     auto [topLeft, bottomRight] = screenRect;
 
     if (bottomRight.x <= viewport->pos.x)
@@ -1018,6 +1021,9 @@ static void ViewportPaint(const Viewport* viewport, DrawPixelInfo& dpi, const Sc
     PROFILED_FUNCTION();
 
     const uint32_t viewFlags = viewport->flags;
+    if (viewFlags & VIEWPORT_FLAG_RENDERING_INHIBITED)
+        return;
+
     uint32_t width = screenRect.GetWidth();
     uint32_t height = screenRect.GetHeight();
     const uint32_t bitmask = viewport->zoom >= ZoomLevel{ 0 } ? 0xFFFFFFFF & (viewport->zoom.ApplyTo(0xFFFFFFFF)) : 0xFFFFFFFF;

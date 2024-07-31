@@ -22,6 +22,7 @@
 #include <openrct2/config/Config.h>
 #include <openrct2/drawing/Drawing.h>
 #include <openrct2/entity/EntityRegistry.h>
+#include <openrct2/interface/Viewport.h>
 #include <openrct2/interface/Widget.h>
 #include <openrct2/localisation/Formatter.h>
 #include <openrct2/sprites.h>
@@ -29,6 +30,7 @@
 #include <openrct2/world/Location.hpp>
 
 using namespace OpenRCT2;
+using namespace OpenRCT2::Ui;
 
 // The amount of pixels to scroll per wheel click
 constexpr int32_t WindowScrollPixels = 17;

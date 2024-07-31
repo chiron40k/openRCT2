@@ -27,6 +27,8 @@
 #include "../world/SurfaceData.h"
 #include "../world/tile_element/Slope.h"
 
+using namespace OpenRCT2;
+
 LandRaiseAction::LandRaiseAction(const CoordsXY& coords, MapRange range, uint8_t selectionType)
     : _coords(coords)
     , _range(range)
@@ -85,9 +87,9 @@ GameActions::Result LandRaiseAction::QueryExecute(bool isExecuting) const
     uint8_t minHeight = MapGetLowestLandHeight(validRange);
     bool withinOwnership = false;
 
-    for (int32_t y = validRange.GetTop(); y <= validRange.GetBottom(); y += COORDS_XY_STEP)
+    for (int32_t y = validRange.GetTop(); y <= validRange.GetBottom(); y += kCoordsXYStep)
     {
-        for (int32_t x = validRange.GetLeft(); x <= validRange.GetRight(); x += COORDS_XY_STEP)
+        for (int32_t x = validRange.GetLeft(); x <= validRange.GetRight(); x += kCoordsXYStep)
         {
             if (!LocationValid({ x, y }))
                 continue;

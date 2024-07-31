@@ -21,6 +21,8 @@
 #include "../TrackData.h"
 #include "../TrackPaint.h"
 
+using namespace OpenRCT2;
+
 static constexpr MetalSupportType kSupportType = MetalSupportType::Boxed;
 
 static constexpr ImageIndex kSuspendedMonorailDiagFlatImages[kNumOrthogonalDirections] = { 25935, 25936, 25935, 25936 };
@@ -271,7 +273,7 @@ static void SuspendedMonorailTrack25DegUpToFlat(
     }
     else
     {
-        PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::_15);
+        PaintUtilPushTunnelRotated(session, direction, height + 8, TunnelType::InvertedSquareFlatTo25Deg);
     }
     PaintUtilSetGeneralSupportHeight(session, height + 56);
 }

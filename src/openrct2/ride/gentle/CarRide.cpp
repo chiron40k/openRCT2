@@ -20,6 +20,8 @@
 #include "../TrackPaint.h"
 #include "../VehiclePaint.h"
 
+using namespace OpenRCT2;
+
 static constexpr MetalSupportType kSupportType = MetalSupportType::Boxed;
 
 enum
@@ -298,10 +300,10 @@ static void PaintCarRideTrack25DegUpToFlat(
             PaintUtilPushTunnelLeft(session, height - 8, TunnelType::StandardFlat);
             break;
         case 1:
-            PaintUtilPushTunnelRight(session, height + 8, TunnelType::_12);
+            PaintUtilPushTunnelRight(session, height + 8, TunnelType::StandardFlatTo25Deg);
             break;
         case 2:
-            PaintUtilPushTunnelLeft(session, height + 8, TunnelType::_12);
+            PaintUtilPushTunnelLeft(session, height + 8, TunnelType::StandardFlatTo25Deg);
             break;
         case 3:
             PaintUtilPushTunnelRight(session, height - 8, TunnelType::StandardFlat);
