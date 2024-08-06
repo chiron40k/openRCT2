@@ -5442,9 +5442,9 @@ bool RideHasRatings(const Ride& ride)
     return ride.excitement != kRideRatingUndefined;
 }
 
-int32_t GetNormalizedBoosterSpeed(ride_type_t rideType, int32_t relativeSpeed)
+int32_t GetUnifiedBoosterSpeed(ride_type_t rideType, int32_t relativeSpeed)
 {
-    return GetRideTypeDescriptor(rideType).GetNormalizedBoosterSpeed(relativeSpeed);
+    return GetRideTypeDescriptor(rideType).GetUnifiedBoosterSpeed(relativeSpeed);
 }
 
 void FixInvalidVehicleSpriteSizes()
