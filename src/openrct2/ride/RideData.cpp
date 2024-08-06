@@ -455,14 +455,14 @@ TrackDrawerEntry getTrackDrawerEntry(const RideTypeDescriptor& rtd, bool isInver
     return descriptor.Regular;
 }
 
-int32_t RideTypeDescriptor::GetRelativeBoosterSpeed(int32_t absoluteSpeed) const
+int32_t RideTypeDescriptor::GetLegacyBoosterSpeed(int32_t unifiedSpeed) const
 {
-    return absoluteSpeed * 2 / LegacyBoosterSettings.BoosterSpeedFactor;
+    return unifiedSpeed * 2 / LegacyBoosterSettings.BoosterSpeedFactor;
 }
 
-int32_t RideTypeDescriptor::GetAbsoluteBoosterSpeed(int32_t relativeSpeed) const
+int32_t RideTypeDescriptor::GetUnifiedBoosterSpeed(int32_t compressedSpeed) const
 {
-    // BoosterSpeedFactor has valid values of 1, 2, 4 representing a 1/2, 1, and 2 multiplier of relative speed to absolute
+    // BoosterSpeedFactor has valid values of 1, 2, 4 representing a 1/2, 1, and 2 multiplier of legacy speed to unified
     // speed.
-    return relativeSpeed * LegacyBoosterSettings.BoosterSpeedFactor / 2;
+    return compressedSpeed * LegacyBoosterSettings.BoosterSpeedFactor / 2;
 }
