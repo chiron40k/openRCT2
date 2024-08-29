@@ -260,16 +260,6 @@ private:
                     entry->Path = path;
                     entry->Timestamp = timestamp;
                     result = true;
-
-                    /*
-                    // If the name or the details contain a colour code, they might be in UTF-8 already.
-                    // This is caused by a bug that was in OpenRCT2 for 3 years.
-                    if (!IsLikelyUTF8(info.Name) && !IsLikelyUTF8(info.Details))
-                    {
-                        RCT2StringToUTF8Self(info.Name, sizeof(info.Name));
-                        RCT2StringToUTF8Self(info.Details, sizeof(info.Details));
-                    }
-                    */
                 }
             }
             catch (const std::exception&)

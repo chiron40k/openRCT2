@@ -233,6 +233,7 @@ namespace OpenRCT2::RCT2
             dst->ObjectiveArg2 = _s6.Info.ObjectiveArg2;
             dst->ObjectiveArg3 = _s6.Info.ObjectiveArg3;
             dst->Highscore = nullptr;
+
             if (String::IsNullOrEmpty(_s6.Info.Name))
             {
                 // If the scenario doesn't have a name, set it to the filename
@@ -249,6 +250,14 @@ namespace OpenRCT2::RCT2
             String::Set(dst->InternalName, sizeof(dst->InternalName), dst->Name);
 
             String::Set(dst->Details, sizeof(dst->Details), _s6.Info.Details);
+
+            // If the name or the details contain a colour code, they might be in UTF-8 already.
+            // This is caused by a bug that was in OpenRCT2 for 3 years.
+            if (!IsLikelyUTF8(dst->Name) && !IsLikelyUTF8(dst->Details))
+            {
+                RCT2StringToUTF8Self(dst->Name, sizeof(dst->Name));
+                RCT2StringToUTF8Self(dst->Details, sizeof(dst->Details));
+            }
 
             // Look up and store information regarding the origins of this scenario.
             SourceDescriptor desc;
