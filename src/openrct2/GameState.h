@@ -26,6 +26,7 @@
 #include "world/Climate.h"
 #include "world/Location.hpp"
 #include "world/Park.h"
+#include "world/ScenerySelection.h"
 
 #include <array>
 #include <chrono>
@@ -150,6 +151,7 @@ namespace OpenRCT2
     };
 
     GameState_t& GetGameState();
+    void SwapGameState(std::unique_ptr<GameState_t>& otherState);
 
     void gameStateInitAll(GameState_t& gameState, const TileCoordsXY& mapSize);
     void gameStateTick();

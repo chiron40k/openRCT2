@@ -44,17 +44,23 @@
 #include "world/Scenery.h"
 
 #include <chrono>
+#include <memory>
 
 using namespace OpenRCT2;
 using namespace OpenRCT2::Scripting;
 
-static GameState_t _gameState{};
-
 namespace OpenRCT2
 {
+    static auto _gameState = std::make_unique<GameState_t>();
+
     GameState_t& GetGameState()
     {
-        return _gameState;
+        return *_gameState;
+    }
+
+    void SwapGameState(std::unique_ptr<GameState_t>& otherState)
+    {
+        _gameState.swap(otherState);
     }
 
     /**

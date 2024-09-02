@@ -61,6 +61,10 @@ struct ScenarioIndexEntry
     utf8 InternalName[64]; // Untranslated name
     utf8 Name[64];         // Translated name
     utf8 Details[256];
+
+    // TODO: 2D array
+    bool previewGenerated = false;
+    uint8_t preview[128 * 128];
 };
 
 namespace OpenRCT2
@@ -97,4 +101,3 @@ void ScenarioRepositoryScan();
 [[nodiscard]] size_t ScenarioRepositoryGetCount();
 [[nodiscard]] const ScenarioIndexEntry* ScenarioRepositoryGetByIndex(size_t index);
 [[nodiscard]] bool ScenarioRepositoryTryRecordHighscore(const utf8* scenarioFileName, money64 companyValue, const utf8* name);
-void ScenarioTranslate(ScenarioIndexEntry* scenarioEntry);
