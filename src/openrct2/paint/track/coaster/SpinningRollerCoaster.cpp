@@ -5961,7 +5961,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = kMapLeftQuarterTurn3TilesToRightQuarterTurn3Tiles[trackSequence];
-        SpinningRCTrackLeftQuarterTurn3Bank(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftQuarterTurn3Bank(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackBankedLeftQuarterTurn5(
@@ -6187,7 +6188,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = kMapLeftQuarterTurn5TilesToRightQuarterTurn5Tiles[trackSequence];
-        SpinningRCTrackBankedLeftQuarterTurn5(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackBankedLeftQuarterTurn5(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftEighthBankToDiag(
@@ -6529,7 +6531,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = mapLeftEighthTurnToOrthogonal[trackSequence];
-        SpinningRCTrackRightEighthBankToDiag(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightEighthBankToDiag(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightEighthBankToOrthogonal(
@@ -6537,7 +6540,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = mapLeftEighthTurnToOrthogonal[trackSequence];
-        SpinningRCTrackLeftEighthBankToDiag(session, ride, trackSequence, (direction + 3) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftEighthBankToDiag(
+            session, ride, trackSequence, (direction + 3) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftQuarterTurn3Tile25DegUp(
@@ -7196,7 +7200,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = kMapLeftQuarterTurn5TilesToRightQuarterTurn5Tiles[trackSequence];
-        SpinningRCTrackRightQuarterTurn525DegUp(session, ride, trackSequence, (direction + 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightQuarterTurn525DegUp(
+            session, ride, trackSequence, (direction + 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightQuarterTurn525DegDown(
@@ -7204,7 +7209,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = kMapLeftQuarterTurn5TilesToRightQuarterTurn5Tiles[trackSequence];
-        SpinningRCTrackLeftQuarterTurn525DegUp(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftQuarterTurn525DegUp(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftQuarterTurn160DegUp(
@@ -7301,14 +7307,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightQuarterTurn160DegUp(session, ride, trackSequence, (direction + 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightQuarterTurn160DegUp(
+            session, ride, trackSequence, (direction + 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightQuarterTurn160DegDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftQuarterTurn160DegUp(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftQuarterTurn160DegUp(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftQuarterTurn190DegUp(
@@ -7415,14 +7423,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightQuarterTurn190DegUp(session, ride, trackSequence, (direction + 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightQuarterTurn190DegUp(
+            session, ride, trackSequence, (direction + 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightQuarterTurn190DegDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftQuarterTurn190DegUp(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftQuarterTurn190DegUp(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrack25DegUpToLeftBanked25DegUp(
@@ -7637,7 +7647,8 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrack25DegUpToLeftBanked25DegUp(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrack25DegUpToLeftBanked25DegUp(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrack25DegDownToLeftBanked25DegDown(
@@ -7652,7 +7663,8 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftBanked25DegUpTo25DegUp(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftBanked25DegUpTo25DegUp(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftBankedFlatToLeftBanked25DegUp(
@@ -8187,28 +8199,32 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightBanked25DegUpToFlat(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightBanked25DegUpToFlat(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackFlatToRightBanked25DegDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftBanked25DegUpToFlat(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftBanked25DegUpToFlat(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftBanked25DegDownToFlat(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackFlatToRightBanked25DegUp(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackFlatToRightBanked25DegUp(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightBanked25DegDownToFlat(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackFlatToLeftBanked25DegUp(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackFlatToLeftBanked25DegUp(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftBankedQuarterTurn3Tile25DegUp(
@@ -9778,7 +9794,8 @@ namespace SpinningRC
             direction = (direction + 1) & 3;
         }
         trackSequence = kMapLeftQuarterTurn3TilesToRightQuarterTurn3Tiles[trackSequence];
-        SpinningRCTrackLeftHalfBankedHelixUpSmall(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftHalfBankedHelixUpSmall(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftHalfBankedHelixUpLarge(
@@ -10624,7 +10641,8 @@ namespace SpinningRC
             direction = (direction + 1) & 3;
         }
         trackSequence = kMapLeftQuarterTurn5TilesToRightQuarterTurn5Tiles[trackSequence];
-        SpinningRCTrackLeftHalfBankedHelixUpLarge(session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftHalfBankedHelixUpLarge(
+            session, ride, trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftBarrelRollUpToDown(
@@ -10967,7 +10985,8 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftBarrelRollUpToDown(session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftBarrelRollUpToDown(
+            session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightBarrelRollDownToUp(
@@ -12190,14 +12209,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrack60DegUpToFlatLongBase(session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrack60DegUpToFlatLongBase(
+            session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrack60DegDownToFlatLongBase(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackFlatTo60DegUpLongBase(session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackFlatTo60DegUpLongBase(
+            session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftCorkscrewUp(
@@ -12450,14 +12471,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightCorkscrewUp(session, ride, 2 - trackSequence, (direction + 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightCorkscrewUp(
+            session, ride, 2 - trackSequence, (direction + 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightCorkscrewDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftCorkscrewUp(session, ride, 2 - trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftCorkscrewUp(
+            session, ride, 2 - trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftLargeCorkscrewUp(
@@ -12895,14 +12918,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightLargeCorkscrewUp(session, ride, 5 - trackSequence, (direction + 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightLargeCorkscrewUp(
+            session, ride, 5 - trackSequence, (direction + 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightLargeCorkscrewDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftLargeCorkscrewUp(session, ride, 5 - trackSequence, (direction - 1) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftLargeCorkscrewUp(
+            session, ride, 5 - trackSequence, (direction - 1) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftMediumHalfLoopUp(
@@ -13610,14 +13635,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftZeroGRollUp(session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftZeroGRollUp(
+            session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightZeroGRollDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightZeroGRollUp(session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightZeroGRollUp(
+            session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftLargeZeroGRollUp(
@@ -13975,14 +14002,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftLargeZeroGRollUp(session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftLargeZeroGRollUp(
+            session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightLargeZeroGRollDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightLargeZeroGRollUp(session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightLargeZeroGRollUp(
+            session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrack90DegToInvertedFlatQuarterLoopUp(
@@ -14098,7 +14127,8 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrack90DegToInvertedFlatQuarterLoopUp(session, ride, 2 - trackSequence, direction, height, trackElement, supportType);
+        SpinningRCTrack90DegToInvertedFlatQuarterLoopUp(
+            session, ride, 2 - trackSequence, direction, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftBankToLeftQuarterTurn3Tile25DegUp(
@@ -16719,7 +16749,8 @@ namespace SpinningRC
     {
         static constexpr uint8_t map[5] = { 4, 3, 1, 2, 0 };
         trackSequence = map[trackSequence];
-        SpinningRCTrackLeftEighthToOrthogonalUp25(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftEighthToOrthogonalUp25(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackLeftEighthToOrthogonalDown25(
@@ -16727,7 +16758,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = mapLeftEighthTurnToOrthogonal[trackSequence];
-        SpinningRCTrackRightEighthToDiagUp25(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightEighthToDiagUp25(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightEighthToOrthogonalDown25(
@@ -16735,7 +16767,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = mapLeftEighthTurnToOrthogonal[trackSequence];
-        SpinningRCTrackLeftEighthToDiagUp25(session, ride, trackSequence, (direction + 3) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftEighthToDiagUp25(
+            session, ride, trackSequence, (direction + 3) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackDiagUp25ToLeftBankedUp25(
@@ -17852,14 +17885,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackDiagUp25RightBanked(session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackDiagUp25RightBanked(
+            session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackDiagDown25RightBanked(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackDiagUp25LeftBanked(session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackDiagUp25LeftBanked(
+            session, ride, 3 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackDiagFlatToLeftBankedUp25(
@@ -19079,7 +19114,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = mapLeftEighthTurnToOrthogonal[trackSequence];
-        SpinningRCTrackRightEighthBankToDiagUp25(session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightEighthBankToDiagUp25(
+            session, ride, trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightEighthBankToOrthogonalDown25(
@@ -19087,7 +19123,8 @@ namespace SpinningRC
         const TrackElement& trackElement, SupportType supportType)
     {
         trackSequence = mapLeftEighthTurnToOrthogonal[trackSequence];
-        SpinningRCTrackLeftEighthBankToDiagUp25(session, ride, trackSequence, (direction + 3) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftEighthBankToDiagUp25(
+            session, ride, trackSequence, (direction + 3) & 3, height, trackElement, supportType);
     }
     static void SpinningRCTrackBooster(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
@@ -19494,14 +19531,16 @@ namespace SpinningRC
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackLeftTwistDownToUp(session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackLeftTwistDownToUp(
+            session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
 
     static void SpinningRCTrackRightTwistUpToDown(
         PaintSession& session, const Ride& ride, uint8_t trackSequence, uint8_t direction, int32_t height,
         const TrackElement& trackElement, SupportType supportType)
     {
-        SpinningRCTrackRightTwistDownToUp(session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
+        SpinningRCTrackRightTwistDownToUp(
+            session, ride, 2 - trackSequence, (direction + 2) & 3, height, trackElement, supportType);
     }
     // adding 1 Turn tile curve to the track
     static void SpinningRCTrackLeftQuarterTurn1(
