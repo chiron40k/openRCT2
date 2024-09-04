@@ -199,7 +199,7 @@ static constexpr WindowParkAward _parkAwards[] = {
         int32_t _numberOfRides = -1;
         uint8_t _peepAnimationFrame = 0;
 
-        Graph::GraphProperties<uint8_t> _ratingProps{};
+        Graph::GraphProperties<uint16_t> _ratingProps{};
         Graph::GraphProperties<uint32_t> _guestProps{};
 
         ScreenRect _ratingGraphBounds;
@@ -706,14 +706,14 @@ static constexpr WindowParkAward _parkAwards[] = {
             AnchorBorderWidgets();
 
             _ratingProps.min = 0;
-            _ratingProps.max = 250;
+            _ratingProps.max = 1000;
             _ratingProps.series = GetGameState().Park.RatingHistory;
             const Widget* background = &widgets[WIDX_PAGE_BACKGROUND];
             _ratingGraphBounds = { windowPos + ScreenCoordsXY{ background->left + 4, background->top + 15 },
                                    windowPos + ScreenCoordsXY{ background->right - 4, background->bottom - 4 } };
 
             char buffer[64]{};
-            FormatStringToBuffer(buffer, sizeof(buffer), "{BLACK}{COMMA32}", Graph::kParkRatingMax);
+            FormatStringToBuffer(buffer, sizeof(buffer), "{BLACK}{COMMA32}", _ratingProps.max);
             int32_t maxWidth = GfxGetStringWidth(buffer, FontStyle::Small) + Graph::kYTickMarkPadding + 1;
             const ScreenCoordsXY dynamicPadding{ std::max(maxWidth, kGraphTopLeftPadding.x), kGraphTopLeftPadding.y };
 
