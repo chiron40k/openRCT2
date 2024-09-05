@@ -233,6 +233,7 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="Diagnostic.h" />
     <ClInclude Include="drawing\Drawing.h" />
+    <ClInclude Include="drawing\DrawingLock.hpp" />
     <ClInclude Include="drawing\Font.h" />
     <ClInclude Include="drawing\IDrawingContext.h" />
     <ClInclude Include="drawing\IDrawingEngine.h" />
@@ -276,7 +277,6 @@
     <ClInclude Include="interface\Fonts.h" />
     <ClInclude Include="interface\InteractiveConsole.h" />
     <ClInclude Include="interface\Screenshot.h" />
-    <ClInclude Include="interface\ScrollArea.h" />
     <ClInclude Include="interface\Viewport.h" />
     <ClInclude Include="interface\Widget.h" />
     <ClInclude Include="interface\Window.h" />
@@ -372,6 +372,9 @@
     <ClInclude Include="paint\tile_element\Paint.TileElement.h" />
     <ClInclude Include="paint\tile_element\Segment.h" />
     <ClInclude Include="paint\tile_element\Paint.Tunnel.h" />
+    <ClInclude Include="paint\track\coaster\BolligerMabillardTrack.hpp" />
+    <ClInclude Include="paint\track\coaster\CorkscrewRollerCoaster.hpp" />
+    <ClInclude Include="paint\track\coaster\TwisterRollerCoaster.h" />
     <ClInclude Include="paint\track\coaster\WoodenRollerCoaster.h" />
     <ClInclude Include="paint\track\Segment.h" />
     <ClInclude Include="paint\track\Support.h" />
@@ -452,6 +455,7 @@
     <ClInclude Include="ride\rtd\coaster\ReverserRollerCoaster.h" />
     <ClInclude Include="ride\rtd\coaster\SideFrictionRollerCoaster.h" />
     <ClInclude Include="ride\rtd\coaster\SingleRailRollerCoaster.h" />
+    <ClInclude Include="ride\rtd\coaster\SpinningRollerCoaster.h" />
     <ClInclude Include="ride\rtd\coaster\SpinningWildMouse.h" />
     <ClInclude Include="ride\rtd\coaster\SpiralRollerCoaster.h" />
     <ClInclude Include="ride\rtd\coaster\StandUpRollerCoaster.h" />
@@ -898,13 +902,13 @@
     <ClCompile Include="paint\track\coaster\CompactInvertedCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\CorkscrewRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\FlyingRollerCoaster.cpp" />
-    <ClCompile Include="paint\track\coaster\LatticeTriangleTrack.cpp" />
     <ClCompile Include="paint\track\coaster\HeartlineTwisterCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\HybridCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\InvertedHairpinCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\InvertedImpulseCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\InvertedRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\JuniorRollerCoaster.cpp" />
+    <ClCompile Include="paint\track\coaster\LatticeTriangleTrack.cpp" />
     <ClCompile Include="paint\track\coaster\LayDownRollerCoasterInverted.cpp" />
     <ClCompile Include="paint\track\coaster\LimLaunchedRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\LoopingRollerCoaster.cpp" />
@@ -917,6 +921,7 @@
     <ClCompile Include="paint\track\coaster\ReverserRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\SideFrictionRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\SingleRailRollerCoaster.cpp" />
+    <ClCompile Include="paint\track\coaster\SpinningRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\StandUpRollerCoaster.cpp" />
     <ClCompile Include="paint\track\coaster\Steeplechase.cpp" />
     <ClCompile Include="paint\track\coaster\SuspendedSwingingCoaster.cpp" />
@@ -995,7 +1000,6 @@
     <ClCompile Include="profiling\Profiling.cpp" />
     <ClCompile Include="rct12\CSStringConverter.cpp" />
     <ClCompile Include="rct12\RCT12.cpp" />
-    <ClCompile Include="rct12\ScenarioPatcher.cpp" />
     <ClCompile Include="rct12\SawyerChunk.cpp" />
     <ClCompile Include="rct12\SawyerChunkReader.cpp" />
     <ClCompile Include="rct12\SawyerChunkWriter.cpp" />
